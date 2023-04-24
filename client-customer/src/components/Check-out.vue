@@ -81,44 +81,44 @@
                 <div class="row py-3" v-show="new_address">
                     <div class="col">
                         <div class="col-5 py-1">
-                            <label for="exampleFormControlInput1" class="form-label">ชื่อ *</label>
-                            <input type="text" class="form-control" placeholder="">
+                            <label for="exampleFormControlInput1" class="form-label">ชื่อผู้รับ *</label>
+                            <input type="text" class="form-control" placeholder="" required>
                         </div>
                         <div class="col-5 py-2">
                             <label for="exampleFormControlInput1" class="form-label">เบอร์โทรศัพท์ *</label>
-                            <input type="text" class="form-control" placeholder="">
+                            <input type="text" class="form-control" placeholder="" required>
                         </div>
                         <div class="col-8 py-2">
                             <label for="exampleFormControlInput1" class="form-label">ที่อยู่ *</label>
-                            <textarea type="text" class="form-control" rows="2" placeholder=""></textarea>
+                            <textarea type="text" class="form-control" rows="2" placeholder="" required></textarea>
                         </div>
                         <div class="row">
                             <div class="col-4 py-2">
-                                <label for="inputState" class="form-label">State</label>
-                                <select id="inputState" class="form-select">
+                                <label for="inputState" class="form-label">จังหวัด</label>
+                                <select id="inputState" class="form-select" required>
                                     <option selected>Choose...</option>
-                                    <option>...</option>
+                                    <option v-for="item in provice.RECORDS" :key="item">{{item.name_th}}</option>
                                 </select>
                             </div>
                             <div class="col-4 py-2">
-                                <label for="inputState" class="form-label">State</label>
-                                <select id="inputState" class="form-select">
-                                    <option selected>Choose...</option>
+                                <label for="inputState" class="form-label">อำเภอ</label>
+                                <select id="inputState" class="form-select" required> 
+                                    <option selected>...</option>
                                     <option>...</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row py-2">
                             <div class="col-4 py-2">
-                                <label for="inputState" class="form-label">State</label>
-                                <select id="inputState" class="form-select">
+                                <label for="inputState" class="form-label">ตำบล</label>
+                                <select id="inputState" class="form-select" required>
                                     <option selected>Choose...</option>
                                     <option>...</option>
                                 </select>
                             </div>
                             <div class="col-4 py-2">
                                 <label for="exampleFormControlInput1" class="form-label">รหัสไปรษณีย์ *</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" placeholder="" required>
                             </div>
                         </div>
                         <div class="row py-2">
@@ -143,7 +143,7 @@
                                         id="flexRadioDefault1">
                                     <label class="form-check-label mx-2" for="flexRadioDefault1"
                                         style="font-size: 20px !important;">
-                                        ชำระผ่านพร้อมเพย์
+                                        ชำระผ่านบัตรเคดิต
                                     </label>
                                 </div>
                             </div>
@@ -297,12 +297,22 @@
 </template>
 
 <script>
+// import axios from 'axios'
+import amphur from '../assets/address/thai_amphures';
+import provice from '../assets/address/thai_provinces';
+import tumbon from '../assets/address/thai_tambons'
 export default {
     data() {
         return {
-            new_address: false
+            new_address: false,
+            amphur: amphur,
+            provice: provice,
+            tumbon: tumbon
         }
-    }
+    },
+    created() {
+        
+    },
 }
 </script>
 

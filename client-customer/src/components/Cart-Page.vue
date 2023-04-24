@@ -107,7 +107,7 @@
                 </div>
                 <div class="row">
                     <div class="col d-flex">
-                        <button type="button" class="btn btn-warning col-12 btn-lg" style="font-size: 35px;">ดำเนินการสั่งสินค้า</button>
+                        <a type="button" href="/check-out" class="btn btn-warning col-12 btn-lg" style="font-size: 35px;"> ดำเนินการสั่งสินค้า</a>
                     </div>
                 </div>
             </div>
