@@ -8,6 +8,7 @@ module.exports = async (req, res, next)=>{
         const v_token = await Token.verifyToken(req_token, 'kmitl');
         if (v_token.status == true){
             console.log("Can use Token")
+            req.user_info = v_token.load;
             next();
         }else{
             console.log("token Timeout || token Error");

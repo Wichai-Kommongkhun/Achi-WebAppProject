@@ -128,6 +128,7 @@ export default {
             code_promotion: "FRAME555",
             amount_item: 0,
             price_sum:0,
+            
         }
     },
    async created(){
