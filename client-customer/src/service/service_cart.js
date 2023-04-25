@@ -4,7 +4,7 @@ import Api from './api';
 export default {
     async request_cart(){
         try{
-            const cart_data = await Api().post('http://localhost:4000/cart', {token: document.cookie});
+            const cart_data = await Api().get('http://localhost:4000/cart');
             return cart_data;
         }catch(er){
             console.log(er);

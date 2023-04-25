@@ -16,9 +16,8 @@ module.exports.allCart = allCart;
 //code by Wichai
 const customer_Cart = async (req, res, next) =>{
     try{
-        const req_token = req.body.token.split('token_login=')[1].trim();
-        const cus_ = await Token.verifyToken(req_token, 'kmitl');
-        const cart = await Business.getCustomer_cart(cus_.load.customer_id);
+        const cus_ = req.user_info;
+        const cart = await Business.getCustomer_cart(cus_.customer_id);
         console.log(cart);
         res.send({status:true, cart:cart})
     }catch(er){

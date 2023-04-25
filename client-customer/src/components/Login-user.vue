@@ -3,8 +3,14 @@
         <title>Login-Page</title>
     </head>
     <div class="container py-4">
-        <div class="row mx-4 py-4">
-            <form class="col-6" style="color: aliceblue" @submit.prevent="Login()">
+        <div class="row mx-4 py-4 d-flex">
+            <div class="col-6 d-flex" v-if="load_state == false">
+                <div class="spinner-border " style="width: 3rem; height: 3rem; color: #FFF;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h1 class="px-2" style="color: #FFF;"> Loading.....</h1>
+            </div>
+            <form class="col-6" style="color: aliceblue" @submit.prevent="Login()" v-if="load_state == true">
                 <div class="" style="color: aliceblue">
                     <h1>ยินดีต้อนรับสู่ AchiFootball</h1>
                 </div><br>
@@ -49,6 +55,7 @@ export default {
             username: '',
             password: '',
             check_err: false,
+            load_state: true
         };
     },
     methods:{
@@ -58,8 +65,13 @@ export default {
                 password: this.password,
             };
             try{
+                this.load_state = false;
                 const _login = await service_login.login(user);
+                if (document.readyState === 'complete'){
+                        this.load_state = true;
+                }
                 console.log(_login.data.status, _login.data.username);
+
                 if (_login.data.status == true){
                     window.location.href = '/';
                     await service_login.set_LocalStore_Expiry('username', _login.data.username, (60*60*1) * 1000)

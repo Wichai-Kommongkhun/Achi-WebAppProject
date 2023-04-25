@@ -9,5 +9,14 @@ export default {
         }catch(er){
             console.log(er);
         }
+    },
+    async addnew_address(newaddress){
+        try{
+            console.log("new Address");
+            const address_data = await  Api().post('/address/new/', {address: newaddress})
+            return address_data.data
+        }catch(er){
+            console.log(er);
+        }
     }
 };

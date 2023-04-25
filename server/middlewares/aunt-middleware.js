@@ -3,11 +3,15 @@ const Token = require('../utilities/token')
 //code by Wichai
 module.exports = async (req, res, next)=>{
     try{
-        const req_token = req.body.token.split('token_login=')[1].trim();
-        console.log(req_token);
-        const v_token = await Token.verifyToken(req_token, 'kmitl');
+        const authorization = req.headers.authorization
+        console.log(authorization);
+        if (!authorization) {
+            return res.status(401).send('You are not logged in now')
+        }
+        const v_token = await Token.verifyToken(authorization, 'kmitl');
         if (v_token.status == true){
             console.log("Can use Token")
+            console.log("MY PLAYLOAD:", v_token.load);
             req.user_info = v_token.load;
             next();
         }else{

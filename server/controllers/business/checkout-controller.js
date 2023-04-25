@@ -14,3 +14,20 @@ const getAdress = async (req, res, next)=>{
 }
 
 module.exports.getAdress = getAdress;
+
+const newAddress = async (req, res, next) =>{
+    try{
+        const user = req.user_info.customer_id;
+        const address = req.body
+        const insert = await CheckOut.add_address(user,address);
+        if (insert.status == true){
+            res.send(insert);
+        }else{
+            res.status(402).send('Have Error Someting? Find it!')
+        }
+    }catch(er){
+        console.log(er);
+        res.status(402).send('Have Error Someting? Find it!')
+    }
+};
+module.exports.newAddress = newAddress;

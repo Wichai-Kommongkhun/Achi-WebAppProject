@@ -56,18 +56,19 @@
                 </div>
 
                 <div class="" v-show="new_address == false">
-                    <div class="row py-3 ">
+                    <div class="row py-3" v-for="(item, index) in cus_address" :key="item" :index="index">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input py-2 px-2" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    ชื่อ: Wichai KommongKhun Tel: 0802535629 เลขที่ 1 ซอย ฉลองกรุง 1 แขวง ลาดกระบัง
-                                    เขตลาดกระบัง กรุงเทพมหานคร 10520
+                                <input class="form-check-input py-2 px-2" type="radio" :name="index"
+                                    :id="index" v-model="index_address" :value="index">
+                                <label class="form-check-label" :for="index">
+                                    ชื่อ: {{item.name}} Tel: {{item.phone}} {{item.address}} ตำบล {{item.tumbon}}
+                                    อำเภอ {{item.amphur}} {{item.provice}} {{item.zip_code}}
                                 </label>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="row py-2">
                         <div class="col text-center">
                             <a href="#" style="color: #E3AF4A;" @click="new_address = true">
@@ -126,7 +127,7 @@
                         </div>
                         <div class="row py-2">
                             <div class="col-4 d-flex">
-                                <button type="button" class="btn btn-success" @click="new_address = false"
+                                <button type="button" class="btn btn-success" @click="new_address = false; addNew_address();"
                                     style="font-size: 20px;">บันทึกที่อยู่</button>
                             </div>
                         </div>
@@ -143,7 +144,7 @@
                             <div class="col-6 d-flex">
                                 <div class="form-check mx-2">
                                     <input class="form-check-input py-2 px-2" type="radio" name="flexRadioDefault"
-                                        id="cadit">
+                                        id="cadit" value="credit card" v-model="pay_type">
                                     <label class="form-check-label mx-2" for="cadit"
                                         style="font-size: 20px !important;">
                                         ชำระผ่านบัตรเคดิต
@@ -153,7 +154,7 @@
                             <div class="col-6">
                                 <div class="form-check mx-2">
                                     <input class="form-check-input py-2 px-2" type="radio" name="flexRadioDefault"
-                                        id="cash">
+                                        id="cash" value="cash" v-model="pay_type">
                                     <label class="form-check-label mx-2" for="cash"
                                         style="font-size: 20px !important;">
                                         เก็บเงินปลายทาง
@@ -169,7 +170,7 @@
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1"
                                 class="form-label">บอกหมายเหตุเพิ่มเติมเพื่อให้เรารู้ถึงความต้องการของคุณ</label>
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea class="form-control" rows="3" v-model="note"></textarea>
                         </div>
                     </div>
                 </div>
@@ -328,6 +329,8 @@ export default {
             price_sum: 0,
             amount_item:0,
             cus_address:{},
+            index_address: -1,
+            note: ''
         }
     },
    async created() {
@@ -375,7 +378,23 @@ export default {
         }
     },
     methods: {
-        
+        async addNew_address(){
+            const address = {
+                name: this.name_newAddr,
+                phone: this.phoe_newAddr,
+                address: this.address_new,
+                provices: this.provice_name,
+                amphur: this.amphur_name,
+                tumbon: this.tumbon_name,
+                zib_code: this.zipcode
+            }
+
+            const callApi = await service_checkout.addnew_address(address)
+            if (callApi.status == true){
+                window.location.href = '/check-out'
+            }
+
+        }
     },
 }
 </script>
