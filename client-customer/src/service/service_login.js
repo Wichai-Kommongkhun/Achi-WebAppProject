@@ -1,7 +1,5 @@
 import Api from './api';
 
-
-
 // Module code by Wichai
 export default {
     async login(object_login) {

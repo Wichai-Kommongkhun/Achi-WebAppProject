@@ -18,5 +18,16 @@ export default {
         }catch(er){
             console.log(er);
         }
+    },
+    async payment(orde_infos){
+        try{
+            console.log("Go to pay");
+            const pay = await Api().post('/create/token/payment', {
+                orde_info: orde_infos
+            });
+            return pay;
+        }catch(er){
+            console.log(er);
+        }
     }
 };

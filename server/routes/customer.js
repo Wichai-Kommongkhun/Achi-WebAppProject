@@ -12,4 +12,5 @@ router.get('/account', accountController.getAccount);
 router.post('/register-post', registerController.register)
 router.post('/cutomer/info', aunt_middleware,accountController.getAccount);
 router.post('/customer/update/info', aunt_middleware,accountController.updateAccount);
+
 exports.router = router;

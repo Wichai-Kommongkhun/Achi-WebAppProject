@@ -6,32 +6,7 @@
     <div class="container">
         <hr style="color:aliceblue">
         <div class="row py-2">
-            <div class="col-3 border-end">
-                <div class="d-flex py-2">
-                    <a href="#" style="color: aliceblue; text-decoration: none;">
-                        <h2>บันชีของฉัน</h2>
-                    </a>
-                    <a href=""><img src="@/assets/icons/user.svg" class="mx-2"></a>
-                </div>
-                <div class="d-flex py-2">
-                    <a href="#" style="color: aliceblue; text-decoration: none;">
-                        <h2>ประวัติการสั่งซื้อ</h2>
-                    </a>
-                    <a href=""><img src="@/assets/icons/user.svg" class="mx-2"></a>
-                </div>
-                <div class="d-flex py-2">
-                    <a href="#" style="color: aliceblue; text-decoration: none;">
-                        <h2>สินค้าที่สนใจ</h2>
-                    </a>
-                    <a href=""><img src="@/assets/icons/user.svg" class="mx-2"></a>
-                </div>
-                <div class="d-flex py-2">
-                    <a href="#" style="color: aliceblue;">
-                        <h2>ออกจากระบบ</h2>
-                    </a>
-                    <a href=""><img src="@/assets/icons/user.svg" class="mx-2"></a>
-                </div>
-            </div>
+            <navUser></navUser>
 
             <div class="col mx-5 " style="color:aliceblue" v-show="edit_active == false">
                 <div class="row">
@@ -81,7 +56,12 @@
 </template>
 
 <script>
+import navUser from './Nav-user.vue'
 export default {
+    
+    components:{
+        navUser:navUser
+    },
     data() {
         return {
             edit_active: false,

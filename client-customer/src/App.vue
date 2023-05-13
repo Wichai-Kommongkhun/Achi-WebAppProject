@@ -9,6 +9,7 @@
 
 
 <script>
+
 import navBar from './components/navBar.vue'
 import Footer from './components/Achi-Footer.vue'
 export default {
@@ -22,7 +23,7 @@ export default {
     }
   },
   created(){
-    }
+    },
 }
 </script>
 

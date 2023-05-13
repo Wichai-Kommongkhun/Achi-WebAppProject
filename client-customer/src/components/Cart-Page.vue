@@ -106,8 +106,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col d-flex">
-                        <a type="button" href="/check-out" class="btn btn-warning col-12 btn-lg" style="font-size: 35px;"> ดำเนินการสั่งสินค้า</a>
+                    <div class="col d-flex" v-if="cart.length > 0">
+                        <a type="button" href="/check-out" class="btn btn-warning col-12 btn-lg" style="font-size: 35px;"> 
+                            ดำเนินการสั่งสินค้า
+                        </a>
+                    </div>
+
+                    <div class="col d-flex" v-if="cart.length == 0">
+                        <button type="button" @click="em()" class="btn btn-warning col-12 btn-lg" style="font-size: 35px;"> 
+                            ดำเนินการสั่งสินค้า
+                        </button>
                     </div>
                 </div>
             </div>
@@ -128,7 +136,6 @@ export default {
             code_promotion: "FRAME555",
             amount_item: 0,
             price_sum:0,
-            
         }
     },
    async created(){
@@ -172,6 +179,9 @@ export default {
             const del_ = await service_cart.deleteItem(cart);
             this.cart.splice(index, 1);
             del_;
+        },
+        em(){
+            alert('กรุณาเพิ่มสินค้าในตระกร้า');
         }
     },
     computed:{

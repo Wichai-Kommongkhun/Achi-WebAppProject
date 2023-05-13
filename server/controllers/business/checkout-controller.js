@@ -12,7 +12,6 @@ const getAdress = async (req, res, next)=>{
         console.log(er);
     }
 }
-
 module.exports.getAdress = getAdress;
 
 const newAddress = async (req, res, next) =>{
@@ -31,3 +30,31 @@ const newAddress = async (req, res, next) =>{
     }
 };
 module.exports.newAddress = newAddress;
+
+
+const new_order = async (req, res, nect) =>{
+    try{
+        const order = req.body;
+        if (!order){
+            res.status(402).send({
+                message: "Data Not Found!",
+                status: false
+            });
+        }
+
+        const create = await CheckOut.create_order(order);
+        res.status(200).send({
+            status: create.status,
+            create: create.create
+        });
+
+    }catch(error){
+        console.log(error);
+        res.status(402).send({
+            status: false,
+            error: error
+        })
+    }
+};
+
+module.exports.new_order = new_order;
