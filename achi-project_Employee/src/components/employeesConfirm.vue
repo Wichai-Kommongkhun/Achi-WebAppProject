@@ -7,12 +7,6 @@
     <div class="row">
       <div class="col-3 border-end">
         <div class="d-flex py-2">
-          <a href="/emInfo" style="color: aliceblue; text-decoration: none">
-            <h3>บัญชีของฉัน</h3>
-          </a>
-          <img src="logo.png" alt="" />
-        </div>
-        <div class="d-flex py-2">
           <a href="/employeeSelect" style="color: aliceblue; text-decoration: none">
             <h3>รายการคำสั่งซื้อ</h3>
           </a>

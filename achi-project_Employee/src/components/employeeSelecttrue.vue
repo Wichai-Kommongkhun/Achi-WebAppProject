@@ -8,6 +8,12 @@
         <div class="row">
             <div class="col-2 border-end">
                 <div class="d-flex py-2">
+                    <a href="/employeeSelect" style="color:#FFB546; text-decoration: none;">
+                        <h3>หน้าหลัก</h3>
+                    </a>
+                    <img src="logo.png" alt="">
+                </div>
+                <div class="d-flex py-2">
                     <a href="/emSelecttrue " style="color:#FFB546; text-decoration: none;">
                         <h3>แสดงสินค้าในคลัง</h3>
                     </a>
@@ -15,7 +21,7 @@
                 </div>
                 <div class="d-flex py-2">
                     <a href="/emChangePro" style="color:#FFB546; text-decoration: none;">
-                        <h3>เพิ่ง/ลบ สินค้นในคลัง</h3>
+                        <h3>เพิ่ม/ลบ สินค้นในคลัง</h3>
                     </a>
                 </div>
                 <div class="d-flex py-2">

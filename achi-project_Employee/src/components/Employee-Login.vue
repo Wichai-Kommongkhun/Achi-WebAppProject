@@ -42,40 +42,13 @@
 
 <script>
 
-import em_acc from '../data_json/admin.js';
 
 export default {
     data(){
         return{
-            em_id: '',
-            password: '',
-            log_err: false,
+            
         }
     },
-    methods:{
-        login(){
-            var wrong = true;
-            em_acc.forEach(em => {
-                console.log(em);
-                if (em.em_id == Number (this.em_id)){
-                    if (em.password === this.password){
-                        localStorage.setItem("employee_id", this.em_id);
-                        localStorage.removeItem("Is_login");
-                        localStorage.setItem("Is_login", true);
-                        this.log_err = false;
-                        wrong = false;
-                        console.log("Login Fully");
-                        window.location.href = "/employeeSelect";
-                    }
-                }
-            });
-            if (wrong){
-                console.log("login Err");
-                this.log_err = true;
-            }
-        }
-    }
-
 }
 </script>
 
