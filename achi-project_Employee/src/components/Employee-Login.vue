@@ -64,10 +64,12 @@ export default {
             });
             rub.then(res =>{
                 // var check2 = null;
-                console.log(res.data.status);
+                // console.log(res.data.status);
                 // check2 = res.data;
                 if (res.data.status == true){
-                window.location.href = "/emCon"
+                window.location.href = "/employeeSelect"
+                localStorage.setItem("idEm",user.emid);
+
             }
                 else{
                 window.location.href = "login-em"

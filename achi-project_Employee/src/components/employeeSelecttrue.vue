@@ -36,7 +36,7 @@
             <div class="col-9 mx-3">
                 <div class="row" style="color:aliceblue;">
                     <div class="col">
-                        <h4>รหัสพนักงาน {{ employee_ID }}</h4>
+                        <h4>รหัสพนักงาน {{ id }}</h4>
                         <h5>แสดงสินค้าในคลัง</h5>
                     </div>
                 </div>
@@ -104,6 +104,7 @@ export default {
             product_info: '',
             admin_info: '',
             search: '',
+            id:''
 
         }
     },
@@ -112,6 +113,7 @@ export default {
         this.admin_info = JSON.parse(localStorage.getItem("admin_key"));
         console.log(this.product_info);
         console.log(this.product_info.length);
+        this.id = localStorage.getItem("idEm");
     },
     watch: {
         search(newVal, oldVal) {
@@ -124,7 +126,8 @@ export default {
             localStorage.removeItem('employee_id');
             window.location.href = '/login';
         }
-    }
+    },
+    
 
 }
 

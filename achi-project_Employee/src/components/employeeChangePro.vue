@@ -36,7 +36,7 @@
             <div class="col-8 mx-3">
                 <div class="row" style="color:aliceblue;">
                     <div class="col-3">
-                        <h4>รหัสพนักงาน 12345</h4>
+                        <h4>รหัสพนักงาน {{ id}}</h4>
                         <h5>จัดการข้อมูลสินค้า</h5>
                     </div>
                 </div>
@@ -237,11 +237,14 @@ export default {
             e_brand: '',
             e_price: 0,
             e_amount: 0,
-            e_index: -1
+            e_index: -1,
+            id:localStorage.getItem("idEm")
         }
     },
+    
     created(){
         // this.product_info = JSON.parse(localStorage.getItem("product_key"));
+        
     },
     methods:{
         look(id, name, brad, price, amo){

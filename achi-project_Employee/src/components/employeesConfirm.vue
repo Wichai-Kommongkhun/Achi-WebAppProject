@@ -33,7 +33,7 @@
       <div class="col-8 mx-3">
         <div class="row" style="color: aliceblue">
           <div class="col">
-            <h3>รหัสพนักงาน {{ employee_ID }}</h3>
+            <h3>รหัสพนักงาน {{ id }}</h3>
             <h5>ส่งเลขติดตามพัศดุ</h5>
           </div>
         </div>
@@ -128,6 +128,7 @@ export default {
       order: order,
       send: '',
       search: '',
+      id:''
     };
   },
   methods: {
@@ -145,8 +146,11 @@ export default {
     },
     sendTag(){
       alert("ส่งเลข " + this.send)
+    },
+  },
+  created() {
+      this.id = localStorage.getItem("idEm");
     }
-  }
 };
 </script>
   

@@ -32,7 +32,7 @@
       <div class="col-8 mx-3">
         <div class="row" style="color:aliceblue;">
           <div class="col">
-            <h3>รหัสพนักงาน {{ employee_ID }}</h3>
+            <h3>รหัสพนักงาน {{ id }}</h3>
             <h5>รายการคำสั่งซื้อ</h5>
           </div>
         </div>
@@ -166,6 +166,7 @@
         employee_ID: localStorage.getItem('employee_id'),
         orders: order,
         search: '',
+        id:''
       }
     },
     methods: {
@@ -187,7 +188,7 @@
     },
     created() {
       console.log(order);
-      
+      this.id = localStorage.getItem("idEm");
     }
   }
 </script>
