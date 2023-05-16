@@ -46,30 +46,42 @@ const create_order = async (order) => {
     const connect = await conn.getConnection();
     await connect.beginTransaction()
     try {
-        const attr = "(customer_id , price, pay_type, payment_status, address_number, date_checkout, order_status, discount, note, send_type)";
+        const attr = "(customer_id , price, pay_type, payment_status, address_number, date_checkout, order_status, note, send_type)";
         const create = await connect.query(
-            "insert into orders" + attr + " values(?,?,?,?,?,?,?,?,?,?)", [
+            "insert into orders" + attr + " values(?,?,?,?,?,?,?,?,?)", [
             order.customer_id,
             order.price,
             order.pay_type,
             order.payment_status,
             order.address_number,
             order.date_checkout,
-            order.order_status,
-            order.discount, 
+            order.order_status, 
             order.note,
-            order.text_delivery
+            order.send_type
         ]
         );
-
         order.cart.forEach(async item => {
             await connect.query(
                 "insert into product_order(order_id, product_id, size, amount, price) values(?,?,?,?,?)",[
                     create[0].insertId, item.product_id, item.size, item.amount, item.price
                 ]
             );
-        });
+            const [amount_ck, fieldCheck] = 
+            await conn.query("select amount from product_store where product_id = ? and size =?",
+                [item.product_id, item.size]
+            );
+            if (amount_ck[0].amount >= item.amount){
+                await connect.query(
+                    `update product_store set amount = amount-${Number(item.amount)} where product_id = ? and size = ?`,
+                    [item.product_id, item.size]
+                );
+            }else{
+                await connect.rollback();
+                console.log("Product is less then amount!");
+                return { error: error, status: false, des: "Product less!"};
+            }
 
+        });
         const del = await connect.query('delete from cart where customer_id = ?', [order.customer_id]);
         console.log("Delete :", del);
 

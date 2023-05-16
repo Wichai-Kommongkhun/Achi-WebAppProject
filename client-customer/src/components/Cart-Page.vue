@@ -80,34 +80,18 @@
                         <h3 class="text-end">{{ sumPrice }} THB</h3>
                     </div>
                 </div>
-                <div class="row py-2 mt-2">
-                    <div class="col">
-                        <label for="inputEmail4" class="form-label">
-                            <h3>ใส่โค้ดส่วนลด</h3>
-                        </label>
-                        <input type="text" class="form-control mb-2" id="" v-model="input_code">
-                        <button type="button" class="btn btn-success py-2" style="font-size: 22px;">ใช้โค้ด</button>
-                    </div>
-                </div>
-                <div class="row py-2 mt-4">
-                    <div class="col-6">
-                        <h3 class="text-strat">ได้รับส่วนลด</h3>
-                    </div>
-                    <div class="col-6">
-                        <h3 class="text-end"> THB</h3>
-                    </div>
-                </div>
+
                 <div class="row py-1 mb-3">
                     <div class="col-6">
                         <h3 class="text-strat">ยอดรวมสุทธิ</h3>
                     </div>
                     <div class="col-6">
-                        <h3 class="text-end">{{ sumPrice-discount }} THB</h3>
+                        <h3 class="text-end">{{ sumPrice }} THB</h3>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col d-flex" v-if="cart.length > 0">
-                        <a type="button" href="/check-out" class="btn btn-warning col-12 btn-lg" style="font-size: 35px;"> 
+                        <a type="button" :href="'/check-out'" class="btn btn-warning col-12 btn-lg" style="font-size: 35px;"> 
                             ดำเนินการสั่งสินค้า
                         </a>
                     </div>
@@ -126,13 +110,12 @@
 
 <script>
 import service_cart from '@/service/service_cart';
+
 export default {
     data() {
         return {
             user_id: 0,
             cart: [],
-            input_code: '',
-            discount: 0,
             code_promotion: "FRAME555",
             amount_item: 0,
             price_sum:0,
@@ -176,13 +159,17 @@ export default {
                 size: this.cart[index].size,
                 amount: this.cart[index].amount
             };
-            const del_ = await service_cart.deleteItem(cart);
-            this.cart.splice(index, 1);
-            del_;
+            if (confirm("you need to delete ?")){
+                const del_ = await service_cart.deleteItem(cart);
+                this.cart.splice(index, 1);
+                del_;
+            }else{
+                console.log("Not delete");
+            }
         },
         em(){
             alert('กรุณาเพิ่มสินค้าในตระกร้า');
-        }
+        },
     },
     computed:{
         sumPrice(){

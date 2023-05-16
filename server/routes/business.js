@@ -52,11 +52,10 @@ router.get('/pay' ,async(req, res, next)=>{
             order_info: JSON.stringify(verifyToken),
             customer_id: JSON.stringify(address[0].customer_id)
         })
-
     }catch(error){
         console.log(error);
         res.status(401).send({
-            message: "This order time out code can not use",
+            message: "This order time out code can not use Please back to Achi-Website!",
             Error: error
         });
     }
@@ -76,5 +75,6 @@ router.delete('/delete/order/payError/:id', async (req, res)=>{
 
 router.get('/orders/get/customer' , aunt_middleware,orderController.getOrder);
 router.get('/order/get/:oid', aunt_middleware, orderController.getOne_order);
+
 
 exports.router = router; 

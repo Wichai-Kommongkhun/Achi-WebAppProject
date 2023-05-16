@@ -7,7 +7,8 @@ const conn = mysql.createPool({
     database: 'database_achi',
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    connectTimeout: (60*1*1)*1000 // 1นาที
 })
 
 module.exports = conn;
