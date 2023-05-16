@@ -26,7 +26,11 @@ const login = async (req, res, next) =>{
                 const token = await Token.createToken(user, 'kmitl'); // สร้าง token ตรงนี้ ถ้า login ผ่าน
                 // res.cookie('token', token);
                 // res.cookie('token', token)
-                res.send({username: user.username, token: token, status: true});
+                res.send({
+                    username: user.username, 
+                    token: token, 
+                    status: true
+                });
             }else{
                 res.send({status: false});
             }

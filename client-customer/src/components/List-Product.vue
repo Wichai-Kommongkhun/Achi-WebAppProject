@@ -133,11 +133,12 @@
         </div>
 
         <div class="row py-2 position-relative" v-if="load_state == true">
-          <div class="col-3 mx-3 py-3" v-for="item in product" :key="item" v-show="(search_all ? true : false) ||
+          <div class="col-3 mx-3 py-3" v-for="item in product" :key="item" 
+            v-show="(type_product === item.type_product) && ((search_all ? true : false) ||
             (s_nike && item.brand.toUpperCase() === 'NIKE' ? true : false) ||
             (s_adi && item.brand.toUpperCase() === 'ADIDAS' ? true : false) ||
             (s_puma && item.brand.toUpperCase() === 'PUMA' ? true : false) ||
-            (s_mizu && item.brand.toUpperCase() === 'MIZUNO' ? true : false)">
+            (s_mizu && item.brand.toUpperCase() === 'MIZUNO' ? true : false))">
 
             <div class="card bg-dark" style="width: 18rem; height: ">
               <img :src="'http://localhost:4000/uploads/' + item.image" class="" style=" max-width: 300px; min-height: 300px; 
@@ -197,6 +198,7 @@ export default {
       list_num: 9,
       now_list: 0,
       load_state: false,
+      type_product: ''
     };
   },
   async created() {
@@ -205,9 +207,11 @@ export default {
     }
     if (this.url === "?p=football") {
       this.title = "FootBall - Boot";
+      this.type_product = 'football'
     }
     if (this.url == "?p=futsal") {
       this.title = "FutSal - Boot";
+      this.type_product = 'futsal'
     }
 
     const product_ = await service_product.getProduct();
@@ -216,7 +220,6 @@ export default {
       this.load_state = true;
     }
     this.product = product_.data;
-
   },
   watch: {
     s_nike(n) {

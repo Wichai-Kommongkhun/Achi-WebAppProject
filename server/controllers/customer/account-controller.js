@@ -19,6 +19,7 @@ module.exports.getAccount = getAccount;
 
 const updateAccount = async (req, res, next)=>{
     try{
+        // req = request res = response
         const req_token = req.body.token.split('token_login=')[1].trim();
         const playload = await Token.verifyToken(req_token, 'kmitl');
         if (User.check_password(playload.load.customer_id, req.body.info.confirm_password)){
@@ -40,8 +41,8 @@ const updateAccount = async (req, res, next)=>{
             res.send({status: false, des:"update error! .. Password wrong!"})
         }
 
-    }catch(er){
-        console.log(er);
+    }catch(error){
+        console.log(error);
         res.send({status: false, des:"update error!"})
     }
 };

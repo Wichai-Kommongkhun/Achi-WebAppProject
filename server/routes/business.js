@@ -16,7 +16,7 @@ router.delete('/delete-cart/one/item/:cid/:pid/:size', cartController.delete_ite
 
 router.get('/address/get/', aunt_middleware, checkoutController.getAdress)
 router.post('/address/new/', aunt_middleware, checkoutController.newAddress);
-router.post('/order/create/', checkoutController.new_order);
+router.post('/order/create', checkoutController.new_order);
 
 
 router.post('/create/token/payment',aunt_middleware, async (req, res)=>{
@@ -27,6 +27,9 @@ router.post('/create/token/payment',aunt_middleware, async (req, res)=>{
         })
     }catch(error){
         console.log(error);
+        res.status(400).send({
+            error: error
+        })
     }
 });
 
@@ -41,9 +44,9 @@ router.get('/pay' ,async(req, res, next)=>{
 
     try{
         const verifyToken = await jwt.verify(token, 'pay');
+
         console.log(verifyToken);
         const [address, field] = await conn.query('select * from customer_address where address_number=?',[verifyToken.address_number])
-        console.log(address[0]);
         res.status(200).render("payment", {
             address: JSON.stringify(address[0]),
             order_info: JSON.stringify(verifyToken),

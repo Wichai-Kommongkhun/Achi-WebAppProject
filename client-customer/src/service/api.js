@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 function getCookie(cname) {
     let name = cname + "=";
     let ca = document.cookie.split(';');
@@ -14,9 +13,7 @@ function getCookie(cname) {
       }
     }
     return "";
-  }
-
-
+}
 const createRequest = axios.create({
     baseURL: 'http://localhost:4000',
 })
@@ -27,7 +24,6 @@ createRequest.interceptors.request.use(
         console.log(token);
         if (token){
             config.headers["Authorization"] = token;
-            // .split('token_login=')[1].trim()
         }
         return config;
     },

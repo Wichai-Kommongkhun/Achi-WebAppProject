@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-
 //code by Wichai
 const enCrypt = async (text)=>{
     try{

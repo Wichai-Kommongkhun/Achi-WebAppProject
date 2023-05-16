@@ -216,7 +216,7 @@
                 </div>
                 <div class="row py-2">
                     <div class="col">
-                        <h3>สินค้าในตระกร้า (2รายการ)</h3>
+                        <h3>สินค้าในตระกร้า ( {{cart.length}} รายการ )</h3>
                     </div>
                 </div>
                 <div class="row order_flow">
@@ -229,7 +229,7 @@
                                 </tr>
                             </thead>
                             <tbody style="" class="">
-                                <tr v-for="      item       in       cart      " :key=" item ">
+                                <tr v-for="item  in cart" :key="item">
                                     <th class="">
                                         <div class="card" style="border: none; background-color: #464646">
                                             <div class="row g-0">
@@ -376,19 +376,16 @@ export default {
             } else {
                 window.location.href = "/login";
             }
-
             const _address = await service_checkout.getCustomer_address();
             this.cus_address = _address;
-        } catch (er) {
+        }catch (er) {
             console.log(er);
+            alert("เกิดข้อผิดพลาด กรุณากด รีเฟช")
         }
-
         this.cart.forEach((item) => {
             this.price_sum += item.price * item.amount;
             this.amount_item += item.amount;
         });
-
-
     },
     watch: {
         provice_id(newval) {
@@ -430,7 +427,7 @@ export default {
                 window.location.href = "/check-out";
             }
         },
-        async checkout() {
+        async checkout() { 
             if (this.address_number <= -1) {
                 return alert("กรุณาเลือกที่อยู่");
             }
@@ -452,12 +449,13 @@ export default {
                 discount: Number(this.discount),
                 cart: this.cart
             };
-
             const paytoken =  await service_checkout.payment(orde_infos)
+            if (paytoken.data.status == false){
+                window.location.href = '/login'
+            }
             // service_checkout.payment(orde_info)
             window.location.href = 'http://localhost:4000/pay/?code='+ paytoken.data.payToken
             console.log(orde_infos);
-            
         },
     },
 
@@ -470,11 +468,9 @@ export default {
     overflow-y: auto;
     overflow-x: hidden;
 }
-
 .tr_p {
     margin-top: -15px !important;
 }
-
 .s_fix {
     max-height: 1200px !important;
 }

@@ -35,13 +35,13 @@ module.exports.newAddress = newAddress;
 const new_order = async (req, res, nect) =>{
     try{
         const order = req.body;
+        console.log("Controller Order");
         if (!order){
             res.status(402).send({
                 message: "Data Not Found!",
                 status: false
             });
         }
-
         const create = await CheckOut.create_order(order);
         res.status(200).send({
             status: create.status,
@@ -58,3 +58,5 @@ const new_order = async (req, res, nect) =>{
 };
 
 module.exports.new_order = new_order;
+
+

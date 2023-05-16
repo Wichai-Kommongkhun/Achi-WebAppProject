@@ -46,9 +46,9 @@ const create_order = async (order) => {
     const connect = await conn.getConnection();
     await connect.beginTransaction()
     try {
-        const attr = "(customer_id , price, pay_type, payment_status, address_number, date_checkout, order_status, discount, note)";
+        const attr = "(customer_id , price, pay_type, payment_status, address_number, date_checkout, order_status, discount, note, send_type)";
         const create = await connect.query(
-            "insert into orders" + attr + " values(?,?,?,?,?,?,?,?,?)", [
+            "insert into orders" + attr + " values(?,?,?,?,?,?,?,?,?,?)", [
             order.customer_id,
             order.price,
             order.pay_type,
@@ -57,7 +57,8 @@ const create_order = async (order) => {
             order.date_checkout,
             order.order_status,
             order.discount, 
-            order.note
+            order.note,
+            order.text_delivery
         ]
         );
 
@@ -85,5 +86,3 @@ const create_order = async (order) => {
     }
 };
 module.exports.create_order = create_order;
-
-

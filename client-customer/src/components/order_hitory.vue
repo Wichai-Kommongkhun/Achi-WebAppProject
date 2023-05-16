@@ -6,7 +6,7 @@
         <hr style="color:aliceblue">
         <div class="row py-2">
             <navUser></navUser>
-            <div class="col mx-5 " style="color:aliceblue" v-show="edit_active == false" v-for="item in 1" :key="item">
+            <div class="col mx-5 " style="color:aliceblue" >
                 <div class="row">
                     <div class="col-10">
                         <h2>ประวัติการสั่งซื้อ</h2>
@@ -24,7 +24,7 @@
                                 style="" >ดูคำสั่งซื้อ</a>
                             </div>
                         </div>
-                        
+
                         <h5 style="color: yellow;">เลขที่คำสั่งซื้อ: {{ orders[0].order_id }}</h5>
                         <img v-if="!orders[0].parcel_number || orders[0].parcel_number === ''" src="https://media.discordapp.net/attachments/926320361119830036/1106272902388666398/status_pic3.png?width=720&height=180"
                         style="margin-left: 25%; width: 50%; margin-bottom: 5%;" alt="">
@@ -33,6 +33,7 @@
                         <img v-if="orders[0].parcel_number && orders[0].date_success" src="https://cdn.discordapp.com/attachments/926320361119830036/1106274329894858822/status_pic3_2.png"
                         style="margin-left: 25%; width: 50%; margin-bottom: 5%;" alt="">
                     </div>
+                    
                     <div class="row">
                         <div class="col-12" style="margin-top: 5%;">
                             <table class="table">

@@ -62,7 +62,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <h5><b>วิธีการจัดส่ง:</b> จัดส่งสินค้าแบบปกติ (5-7 วัน)</h5>
+                            <h5><b>วิธีการจัดส่ง:</b> {{order_info.text_delivery}}</h5>
                         </div>
                     </div>
                     <hr>
@@ -101,13 +101,12 @@
 
                     <div class="row" v-show="pay_type === 'cash' ">
                         <div class="col">
-                            <button type="button" class="btn col-8 btn-lg"
+                            <button type="button" @click="createOrder_cash()" class="btn col-8 btn-lg"
                                 style="background-color: #005876; color:aliceblue">
                                 ชำระเงินปลายทาง
                             </button>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-6" style="margin-top: 2%;">
@@ -146,10 +145,7 @@
                         </button>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -187,16 +183,43 @@
                         discount: this.order_info.discount,
                         note: this.order_info.note,
                         order_status: true,
-                        cart: this.order_info.cart
+                        cart: this.order_info.cart,
+                        send_type:this.order_info.text_delivery
                     };
                     console.log(order);
-                    const create = await axios.post('http://localhost:4000/order/create/', order);
+                    const create = await axios.post('http://localhost:4000/order/create', order);
 
                     return {
                         status: create.data.status,
                         order_id: create.data.create
                     };
                 } catch (error) {
+                    console.log(error)
+                    // alert("เกิดข้อผิดพลาดในการสร้าง order กรุณาส่งชื่อบัตรและหมายเลขบัตรเครดิต4ตัวท้ายและราคา ไปที่ itkmitl@it.ac.th")
+                    return false
+                }
+            },
+            async createOrder_cash(){
+                try{
+                    var date = new Date();
+                    const order = {
+                        customer_id: this.customer_id,
+                        price: this.order_info.price,
+                        pay_type: this.pay_type,
+                        payment_status: false,
+                        address_number: this.address.address_number,
+                        date_checkout: date,
+                        discount: this.order_info.discount,
+                        note: this.order_info.note,
+                        order_status: true,
+                        cart: this.order_info.cart,
+                        send_type:this.order_info.text_delivery
+                    };
+                    const create = await axios.post('http://localhost:4000/order/create', order);
+    
+                    alert("ดำเนินการสั่งซื้อเรียบร้อย");
+                    window.location.href = 'http://localhost:8080/'
+                }catch(error){
                     console.log(error)
                     // alert("เกิดข้อผิดพลาดในการสร้าง order กรุณาส่งชื่อบัตรและหมายเลขบัตรเครดิต4ตัวท้ายและราคา ไปที่ itkmitl@it.ac.th")
                     return false

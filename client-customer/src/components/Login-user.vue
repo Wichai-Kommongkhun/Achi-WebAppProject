@@ -73,8 +73,8 @@ export default {
                 console.log(_login.data.status, _login.data.username);
 
                 if (_login.data.status == true){
-                    window.location.href = '/';
                     await service_login.set_LocalStore_Expiry('username', _login.data.username, (60*60*1) * 1000)
+                    window.location.href = '/';
                     // localStorage.setItem("username",_login.data.username)
                 }else{
                     this.check_err = true;

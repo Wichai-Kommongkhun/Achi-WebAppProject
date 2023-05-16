@@ -39,7 +39,8 @@ const routes = [
     {
         path:"/cart",
         name: "cart",
-        component: Cart
+        component: Cart,
+        meta: {login: true}
     },
     {
         path:"/product/:pid/:pn",
@@ -50,26 +51,31 @@ const routes = [
         path:"/account-information",
         name:"acc_info",
         component: User_info,
+        meta: {login: true}
     },
     {
         path:"/check-out",
         name: "check-out",
-        component: Check_out
+        component: Check_out,
+        meta: {login: true}
     },
     {
         path:"/pro_star",
         name:"pro_star",
-        component:pro_star
+        component:pro_star,
+        meta: {login: true}
     },
     {
         path:"/order_his",
         name:"order_history",
-        component:order_his
+        component:order_his,
+        meta: {login: true}
     },
     {
         path:"/order_de",
         name:"order_detail",
-        component:order_de
+        component:order_de,
+        meta: {login: true}
     }
 
 ]
@@ -78,5 +84,16 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+
+router.beforeEach((to, from, next) =>{
+    const isLogin = localStorage.getItem('username');
+
+    if (to.meta.login && !isLogin){
+        next({
+            path: '/login'
+        })
+    }
+    next()
+})
 
 export default router;
