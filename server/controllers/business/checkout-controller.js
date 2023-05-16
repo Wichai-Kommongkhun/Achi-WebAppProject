@@ -43,6 +43,19 @@ const new_order = async (req, res, nect) =>{
             });
         }
         const create = await CheckOut.create_order(order);
+        if (create.des){
+            return res.status(402).send({
+                status: create.status,
+                create: create.create,
+                des: create.des
+            })
+        };
+        if (create.status == false){
+            return res.status(400).send({
+                status: create.status,
+                create: create.create
+            })
+        }
         res.status(200).send({
             status: create.status,
             create: create.create
@@ -50,7 +63,7 @@ const new_order = async (req, res, nect) =>{
 
     }catch(error){
         console.log(error);
-        res.status(402).send({
+        res.status(401).send({
             status: false,
             error: error
         })

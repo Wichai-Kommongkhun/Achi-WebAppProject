@@ -16,8 +16,8 @@
                     <div class="row py-3">
                         <div class="col-4">
                             <div class="form-check mx-2">
-                                <input class="form-check-input py-2 px-2" type="radio" name="atstore" id="atstore"
-                                    value="0" v-model="delivery_price" />
+                                <input class="form-check-input py-2 px-2" type="radio" name="atstore" id="atstore" value="0"
+                                    v-model="delivery_price" />
                                 <label class="form-check-label mx-2" for="atstore" style="font-size: 20px !important">
                                     รับสินค้าที่ร้าน
                                 </label>
@@ -25,8 +25,8 @@
                         </div>
                         <div class="col-4 d-flex">
                             <div class="form-check mx-2">
-                                <input class="form-check-input py-2 px-2" type="radio" name="normaly" id="normaly" value="20"
-                                    v-model="delivery_price" />
+                                <input class="form-check-input py-2 px-2" type="radio" name="normaly" id="normaly"
+                                    value="20" v-model="delivery_price" />
                                 <label class="form-check-label mx-2" for="normaly" style="font-size: 20px !important">
                                     จัดส่งสินค้าแบบปกติ (5-7 วัน)
                                 </label>
@@ -125,15 +125,16 @@
                             </div>
                         </div>
                         <div class="row py-2">
-                            <div class="col-4 d-flex">
-                                <button type="button" class="btn btn-success"
-                                    @click="new_address = false;
-                                    addNew_address();
-                                                                                                                                                                                                                          "
-                                    style="font-size: 20px">
+                            <div class="col-6 d-flex">
+                                <button type="button" class="btn btn-success" @click="new_address = false;
+                                addNew_address();" style="font-size: 20px">
                                     บันทึกที่อยู่
                                 </button>
+
+                                <button type="button" class=" mx-2 btn btn-danger"
+                                    @click="new_address = false">ยกเลิก</button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -172,7 +173,7 @@
                         <div class="mb-2">
                             <label for="exampleFormControlTextarea1"
                                 class="form-label">บอกหมายเหตุเพิ่มเติมเพื่อให้เรารู้ถึงความต้องการของคุณ</label>
-                            <textarea class="form-control" rows="3" v-model=" note "></textarea>
+                            <textarea class="form-control" rows="3" v-model="note"></textarea>
                         </div>
                     </div>
                 </div>
@@ -181,16 +182,55 @@
                     <div class="col" style="color: aliceblue">
                         <div class="row">
                             <div class="col">
-                                <a href="#" style="color: aliceblue">
+                                <a href="#" style="color: aliceblue" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">
                                     <h4>กดดูเงื่อนไขการสั่งซื้อ</h4>
                                 </a>
+                            </div>
+                            <div class="modal fade modal-xl" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered ">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-warning" >
+                                            <h4 class="modal-title" id="staticBackdropLabel" style="color: black;">
+                                                เงื่อนไขการเปลี่ยนและคืนสินค้า
+                                            </h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" style="color: #292727;">
+                                            <!-- <h3>เงื่อนไขการเปลี่ยนและคืนสินค้า</h3> -->
+                                            <ul>
+                                                <li>สินค้าที่ทำการ Personalize (ปักชื่อ หรือ สกรีนชื่อและเบอร์ลงบนสินค้า), สินค้าจัดรายการโปรโมชั่น 
+                                                    และสินค้าที่มีการจำกัดสิทธิ์การซื้อหรือสินค้า Limited Edition ไม่สามารถทำการเปลี่ยนหรือคืนสินค้าได้ทุกกรณี 
+                                                    ยกเว้นสินค้ามีตำหนิที่เกิดจากการผลิตเท่านั้น
+                                                </li>
+                                                <li>
+                                                    สินค้าราคาปกติ สินค้าที่ใช้ส่วนลดสมาชิก และสินค้าที่ลดราคาตามฤดูกาล สามารถเปลี่ยนหรือคืนสินค้าได้
+                                                </li>
+                                                <li>การเปลี่ยน/คืนสินค้า สามารถทำได้ภายใน 14 วัน นับจากวันที่สินค้าส่งถึงปลายทาง</li>
+                                                <li>สินค้านั้นจะต้องอยู่ในสภาพสมบูรณ์ ไม่ถูกใช้ โดยป้ายฉลากสินค้าจะต้องไม่ฉีกขาดหรือเสียหาย และสินค้าจะต้องอยู่ในบรรจุภัณฑ์ที่สมบูรณ์ของยี่ห้อนั้นๆ</li>
+                                                <li>การเปลี่ยนหรือคืนสินค้า ทางลูกค้าเป็นผู้รับผิดชอบค่าส่งสินค้ากลับและค่าส่งสินค้าใหม่ไปเปลี่ยนทุกกรณี ยกเว้นสินค้าที่มีตำหนิที่เกิดจากการผลิตเท่านั้น</li>
+                                                <li>การเปลี่ยน/คืนสินค้า จำกัดที่ 1 ครั้ง ต่อ 1 เลขที่การสั่งซื้อ</li>
+                                                <li>หากตรวจสอบพบว่า จำนวนประวัติการคืนสินค้า มีจำนวนใกล้เคียงกับการสั่งซื้อ เจ้าหน้าที่มีสิทธิ์ปฏิเสธการคืนสินค้าและสงวนสิทธ์ในการปิดบัญชีผู้ใช้บน 
+                                                    arifootballstore.com ได้โดยไม่ต้องแจ้งให้ทราบล่วงหน้า
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary"
+                                                data-bs-dismiss="modal">Understood</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row py-3">
                             <div class="col">
                                 <div class="form-check">
                                     <input class="form-check-input py-3 px-3" type="checkbox" value="1"
-                                        id="flexCheckDefault" />
+                                        id="flexCheckDefault" v-model="checkBox" />
                                     <label class="form-check-label mx-2" for="flexCheckDefault">
                                         <h4>ยอมรับเงื่อนไขการสั่งซื้อสินค้าทั้งหมด</h4>
                                     </label>
@@ -198,10 +238,12 @@
                             </div>
                         </div>
                         <div class="row">
-                             <div class="col d-flex" style="cursor: pointer"> 
-                                <button class="btn btn-warning col-8 btn-lg" style="font-size: 35px" @click=" checkout() ">
+                            <div class="col d-flex" :style="checkBox == 0 ? '':'cursor: pointer'">
+                                <button class="btn btn-warning col-8 btn-lg" 
+                                style="font-size: 35px" @click="checkout()"
+                                :disabled="checkBox == 0">
                                     ดำเนินการชำระเงิน
-                                </button> 
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -216,7 +258,7 @@
                 </div>
                 <div class="row py-2">
                     <div class="col">
-                        <h3>สินค้าในตระกร้า ( {{cart.length}} รายการ )</h3>
+                        <h3>สินค้าในตระกร้า ( {{ cart.length }} รายการ )</h3>
                     </div>
                 </div>
                 <div class="row order_flow">
@@ -234,7 +276,7 @@
                                         <div class="card" style="border: none; background-color: #464646">
                                             <div class="row g-0">
                                                 <div class="col-5">
-                                                    <img :src=" 'http://localhost:4000/uploads/' + item.image "
+                                                    <img :src="'http://localhost:4000/uploads/' + item.image"
                                                         class="img-fluid rounded-start" alt="..." />
                                                 </div>
                                                 <div class="col">
@@ -366,6 +408,7 @@ export default {
             address_number: -1,
             note: "",
             discount: 0,
+            checkBox: 0
         };
     },
     async created() {
@@ -378,7 +421,7 @@ export default {
             }
             const _address = await service_checkout.getCustomer_address();
             this.cus_address = _address;
-        }catch (er) {
+        } catch (er) {
             console.log(er);
             alert("เกิดข้อผิดพลาด กรุณากด รีเฟช")
         }
@@ -427,16 +470,16 @@ export default {
                 window.location.href = "/check-out";
             }
         },
-        async checkout() { 
+        async checkout() {
             if (this.address_number <= -1) {
                 return alert("กรุณาเลือกที่อยู่");
             }
             var doc_deli = '';
-            if (this.delivery_price == 0){
+            if (this.delivery_price == 0) {
                 doc_deli = "รับสินค้าที่ร้าน"
-            }else if (this.delivery_price == 20){
+            } else if (this.delivery_price == 20) {
                 doc_deli = "จัดส่งสินค้าแบบปกติ (5-7 วัน)"
-            }else if (this.delivery_price == 80){
+            } else if (this.delivery_price == 80) {
                 doc_deli = "จัดส่งสินค้าแบบพิเศษในราคา 80 บาท (1-2 วัน)"
             }
 
@@ -449,12 +492,12 @@ export default {
                 discount: Number(this.discount),
                 cart: this.cart
             };
-            const paytoken =  await service_checkout.payment(orde_infos)
-            if (paytoken.data.status == false){
+            const paytoken = await service_checkout.payment(orde_infos)
+            if (paytoken.data.status == false) {
                 window.location.href = '/login'
             }
             // service_checkout.payment(orde_info)
-            window.location.href = 'http://localhost:4000/pay/?code='+ paytoken.data.payToken
+            window.location.href = 'http://localhost:4000/pay/?code=' + paytoken.data.payToken
             console.log(orde_infos);
         },
     },
@@ -468,9 +511,11 @@ export default {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
 .tr_p {
     margin-top: -15px !important;
 }
+
 .s_fix {
     max-height: 1200px !important;
 }

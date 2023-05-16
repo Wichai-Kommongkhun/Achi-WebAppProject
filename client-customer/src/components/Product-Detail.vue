@@ -74,7 +74,7 @@
                         <h3 style="color:#ce4910">จำนวนสินค้าในคลัง: {{ amount_store }}</h3>
                     </div>
                 </div>
-                <div class="row py-4">
+                <!-- <div class="row py-4">
                     <div class="col d-flex">
                         <h3>ขนาด: </h3>
                         <div class="mx-4">
@@ -87,7 +87,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <!-- <div class="col-2 py-2 mx-0 form-check" v-for=" item in size" :key="item">
                         <input type="radio" class="btn-check form-check-input" name="options" :id="'size-'+item" autocomplete="off">
@@ -95,7 +95,7 @@
                     </div> -->
                     <div class="col-2 py-2 mx-0 form-check" v-for=" (item, index) in size" :key="item" :index="index">
                         <input type="radio" class="btn-check" name="options-outlined" :id="'size' + item" autocomplete="off"
-                            @click="select_size(index)" :disabled="product[index].amount < 1 ? true : false">
+                            @click="select_size(index); item_amo = 1;" :disabled="product[index].amount < 1 ? true : false">
                         <label class="btn btn-outline-warning" :for="'size' + item">{{ item }} {{ unit }}</label>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                                 @click="item_amo > 1 ? item_amo-- : false">-</button>
                             <input type="text" class="form-control text-center ele-num"
                                 style="color: aliceblue; background-color: #1a1818;" v-model="item_amo">
-                            <button type="button" class="btn btn-outline-light" @click="item_amo++">+</button>
+                            <button type="button" class="btn btn-outline-light" @click="item_amo < amount_store ? item_amo++: null">+</button>
                         </div>
                     </div>
                 </div>
@@ -171,6 +171,7 @@ export default {
                     size: this.size_store,
                     product_id: this.product[0].product_id
                 });
+                alert("Save in cart")
             }else{
                 alert("SELECT SIZE ?")
             }
