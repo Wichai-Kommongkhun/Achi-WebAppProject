@@ -83,6 +83,7 @@ export default {
                 }
                 
             }catch(er){
+                this.check_err = true;
                 console.log(er);
             }
         }
