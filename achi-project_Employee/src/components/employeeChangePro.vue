@@ -303,7 +303,7 @@ export default {
     }
 }
 </script>
-    
+
 <style scoped>
 .for-fu{
     height: 150px !important;

@@ -1,9 +1,14 @@
 const express = require("express");
 const path = require("path")
 const app = express();
-const conn = require('../config/config')
+const conn = require('../config/config');
+
+const allOrder = require("../controllers/employee/allOrder")
 // const login = require('../controllers/employee/loginEm');
+
+
 router = express.Router();
+
 
 router.post('/login-em', async (req,res,next) =>{
     try{
@@ -28,5 +33,8 @@ router.post('/login-em', async (req,res,next) =>{
         console.log(err);
     }
 });
+
+router.get('/employeeSelect', allOrder.order);
+
 
 exports.router = router;

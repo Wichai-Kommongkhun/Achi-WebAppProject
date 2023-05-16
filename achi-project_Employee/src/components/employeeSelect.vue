@@ -95,7 +95,7 @@
                   <th></th>
                 </tr>
               </thead>
-              <tbody style="background-color: #222222; color: aliceblue;">
+              <tbody style="background-color: #222222; color: aliceblue;" >
                 <tr class="size_tr" v-for="(item) in orders" :key="item" v-show="item.order_number.toString().includes(search)">
                   <td>{{ item.order_number}}</td>
                   <td>{{ item.date_sales }}</td>
@@ -126,9 +126,12 @@
     </div>
   </div>
   
+
+
 </template>
   
 <script>
+
   import order from '../data_json/orders.js';
 
 
@@ -160,13 +163,15 @@
     //   }   
     // }
 
+ 
   export default {
     data() {
       return {
         employee_ID: localStorage.getItem('employee_id'),
         orders: order,
         search: '',
-        id:''
+        id:'',
+ 
       }
     },
     methods: {
@@ -184,11 +189,14 @@
       },
       html_to_ex(){
         window.print()
-      }
+      },
+
     },
     created() {
       console.log(order);
       this.id = localStorage.getItem("idEm");
+      // this.allorder = res.data.status;
+
     }
   }
 </script>
