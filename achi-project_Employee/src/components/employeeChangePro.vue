@@ -9,6 +9,12 @@
         <div class="row">
             <div class="col-2 border-end">
                 <div class="d-flex py-2">
+                    <a href="/employeeSelect" style="color:#FFB546; text-decoration: none;">
+                        <h3>หน้าหลัก</h3>
+                    </a>
+                    <img src="logo.png" alt="">
+                </div>
+                <div class="d-flex py-2">
                     <a href="/emSelecttrue " style="color:#FFB546; text-decoration: none;">
                         <h3>แสดงสินค้าในคลัง</h3>
                     </a>
@@ -16,7 +22,7 @@
                 </div>
                 <div class="d-flex py-2">
                     <a href="/emChangePro" style="color:#FFB546; text-decoration: none;">
-                        <h3>เพิ่ง/ลบ สินค้นในคลัง</h3>
+                        <h3>เพิ่ม/ลบ สินค้นในคลัง</h3>
                     </a>
                 </div>
                 <div class="d-flex py-2">
@@ -99,8 +105,9 @@
                                     <td class="" style="max-width: 60px !important;">
                                         <div class="row g-0">
                                             <div class="col-8 d-flex">
-                                                <h3 class="mx-2">{{ item.amount }} </h3>
+                                                
                                                 <button class="btn btn-primary mx-2" @click="add(index)">เพิ่ม</button>
+                                                <h3 class="mx-2">{{ item.amount }} </h3>
                                                 <button class="btn btn-warning mx-2" @click="reduct(index)">ลด</button>
                                                 <!-- <button type="button" class="btn btn-outline-secondary">-</button>
                                                     <button type="button" class="btn btn-outline-secondary">+</button> -->
@@ -150,9 +157,9 @@
                         </div>
                         <div class="row py-2">
                             <div class="col-4 d-flex">
-                                <h5 style="display: inline">จำนวน :</h5>
+                                <h5 style="display: inline">รายละเอียดสินค้า :</h5>
                                 <div class="col-4 mx-2">
-                                    <input type="number" placeholder="" class="form-control" v-model="e_amount">
+                                    <input type="text" placeholder="" class="form-control" >
                                 </div>
                             </div>
                         </div>
@@ -210,11 +217,7 @@
                 </div>
 
             </div>
-            <div class="row">
-                <div class="col for-fu">
-                    {{ product_info }}
-                </div>
-            </div>
+            
         </div>
         
     </div>

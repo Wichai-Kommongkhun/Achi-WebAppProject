@@ -10,7 +10,7 @@ import emCondetail from "@/components/employeeProductdetail.vue";
 import emChangePro from "@/components/employeeChangePro.vue";
 import emAddPro from "@/components/employeeAddpro.vue";
 import test from "@/components/Test-medel.vue";
-import Enployee_Info from "@/components/Employee-information.vue";
+
 import login from "@/components/Employee-Login.vue";
 import order_detail from "@/components/order_detail.vue";
 // saasdas
@@ -50,11 +50,7 @@ const routes = [
         name:"emAddProduct",
         component:emAddPro
     },
-    {
-        path:"/emInfo",
-        name: "Enployee_Info",
-        component: Enployee_Info
-    },
+
     {
         path:"/login",
         name: "login",
