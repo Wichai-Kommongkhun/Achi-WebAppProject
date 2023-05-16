@@ -39,7 +39,8 @@ app.use(businessRouter.router);
 const omiseRouter = require("./routes/omise")
 app.use(omiseRouter.router)
 
-
+const loginem = require("./routes/employee")
+app.use(loginem.router)
 
 app.listen(4000, () => {
     console.log(`Server started on port`+ 4000);

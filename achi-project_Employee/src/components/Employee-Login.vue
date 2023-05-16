@@ -9,18 +9,19 @@
             </div>
         </div>
         <br>
-        <div class="row py-1" style="color: aliceblue;">
+        <form action="" @submit.prevent="login()">
+            <div class="row py-1" style="color: aliceblue;">
             <div class="col-6">
                 <div class="mb-3">
-                    <label for="formGroupExampleInput" class="form-label">รหัสพนักงาน</label>
-                    <input type="text" class="form-control" placeholder="กรอกหรัสพนักงาน" v-model="em_id" required>
+                    <label for="formGroupExampleInput" class="form-label" name="emid">รหัสพนักงาน</label>
+                    <input type="text" class="form-control" placeholder="กรอกหรัสพนักงาน" v-model="emid" required>
                 </div>
             </div>
         </div>
         <div class="row py-1" style="color: aliceblue;">
             <div class="col-6">
                 <div class="mb-3">
-                    <label for="formGroupExampleInput" class="form-label">รหัสผ่าน</label>
+                    <label for="formGroupExampleInput" class="form-label" name="password">รหัสผ่าน</label>
                     <input type="password" class="form-control" placeholder="กรอกรหัสผ่าน" v-model="password" required>
                 </div>
             </div>
@@ -37,18 +38,45 @@
                 <h5 >เข้าสู่ระบบไม่สำเร็จ รหัสพนักงาน หรือ รหัสผ่าน ไม่ถูกต้อง</h5>
             </div>
         </div>
+        </form>
     </div>
 </template>
 
 <script>
 
-
+import axios from "axios";
 export default {
     data(){
         return{
-            
+            emid:'',
+            password:'',
+            check:''
         }
     },
+    methods: {
+        login(){
+            const user = {
+                emid: this.emid,
+                password:this.password
+            }
+            const rub = axios.post("http://localhost:4000/login-em",{
+                user:user
+            });
+            rub.then(res =>{
+                // var check2 = null;
+                console.log(res.data.status);
+                // check2 = res.data;
+                if (res.data.status == true){
+                window.location.href = "/emCon"
+            }
+                else{
+                window.location.href = "login-em"
+            }
+            });
+        }
+
+    },
+    
 }
 </script>
 

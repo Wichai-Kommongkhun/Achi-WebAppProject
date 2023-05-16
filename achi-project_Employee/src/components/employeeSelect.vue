@@ -187,6 +187,7 @@
     },
     created() {
       console.log(order);
+      
     }
   }
 </script>
