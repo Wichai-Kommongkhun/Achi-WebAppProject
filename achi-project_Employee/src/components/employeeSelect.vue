@@ -42,14 +42,14 @@
           </div>
           <div class="col-4">
             <div class="form-check mx-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @click="pay_success=1" >
+              <label class="form-check-label" for="flexCheckDefault" >
                 ที่ชำระเงินสำเร็จ
               </label>
             </div>
             <div class="form-check mx-2">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault" >
                 ที่ยังไม่ได้รับเลขติดตามพัสดุ
               </label>
             </div>
@@ -62,8 +62,8 @@
               </label>
             </div>
             <div class="form-check ">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="pay_fail">
+              <label class="form-check-label" for="flexCheckDefault ">
                 ที่ยังไม่ชำระเงิน
               </label>
             </div>
@@ -78,7 +78,7 @@
             </div>
             <label for="">แสดงคำสั่งซื้อวันที่ :</label>
             <div class="col-2 mx-3 input-group-sm">
-              <input type="date" placeholder="ระบุเลขที่คำสั่งซื้อ" class="form-control">
+              <input type="date" placeholder="ระบุเลขที่คำสั่งซื้อ" class="form-control" v-model="search_date">
             </div>
           </div>
         </div>
@@ -96,13 +96,14 @@
                 </tr>
               </thead>
               <tbody style="background-color: #222222; color: aliceblue;" >
-                <tr class="size_tr" v-for="(item) in orders" :key="item" v-show="item.order_number.toString().includes(search)">
-                  <td>{{ item.order_number}}</td>
-                  <td>{{ item.date_sales }}</td>
-                  <td>{{ sumPrice(item.chart) }}</td>
-                  <td>{{ item.pay_success }}</td>
-                  <td>{{ item.tag_number }}</td>
-                  <td><a :href="'/order-detail?oid='+item.order_number" style="color: aliceblue;">รายละเอียด</a></td>
+                <tr class="size_tr" v-for="item in order" :key="item" v-show="item.order_id.toString().includes(search) && item.date_checkout.toString().includes(search_date)
+                && item.payment_status.toString().includes(pay_success)" >
+                  <td>{{ item.order_id }}</td>
+                  <td>{{ item.date_checkout }}</td>
+                  <td >{{ item.price }}</td>
+                  <td v-if="item.payment_status == 1">ชำระเงินสำเร็จ</td>
+                  <td v-else>ยังไม่ได้ชำระเงิน</td>
+                  <td><a :href="'/order-detail?oid='+item.order_id" style="color: aliceblue;">รายละเอียด</a></td>
                 </tr>
               </tbody>
             </table>
@@ -125,7 +126,8 @@
       </div>
     </div>
   </div>
-  
+
+<!-- <div style="color: aliceblue;"> {{ pay_success }}</div> -->
 
 
 </template>
@@ -133,7 +135,7 @@
 <script>
 
   import order from '../data_json/orders.js';
-
+  import axios  from 'axios';
 
     // function exportTableToExcel(tableID, filename = ''){
     //   var downloadLink;
@@ -171,6 +173,11 @@
         orders: order,
         search: '',
         id:'',
+        order:[],
+        search_date:'',
+        pay_success:'',
+        pay_fail:'',
+        no_tag:''
  
       }
     },
@@ -196,7 +203,11 @@
       console.log(order);
       this.id = localStorage.getItem("idEm");
       // this.allorder = res.data.status;
+      const rub = axios.get("http://localhost:4000/employeeSelect")
 
+      rub.then(res => {
+        this.order = res.data.order; 
+      });
     }
   }
 </script>

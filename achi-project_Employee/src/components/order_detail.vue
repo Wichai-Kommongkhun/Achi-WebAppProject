@@ -9,7 +9,7 @@
         <div class="col-12" style="border: 1px solid white; height: 20%; margin-bottom: 3%; ">
 
             <div style="height: 2rem; margin-left: 2%;" >
-                <h6 style="display: inline; color: aliceblue; ">รายการคำสั่งซื้อล่าสุด วันที่ {{ }}</h6>
+                <h6 style="display: inline; color: aliceblue; ">รายการคำสั่งซื้อล่าสุด วันที่ {{ 21-5-63}}</h6>
                 
             </div>
             <h5 style="color: yellow;  margin-left: 2%;">เลขที่คำสั่งซื้อ: {{ oid }}</h5>

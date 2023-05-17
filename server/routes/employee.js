@@ -3,7 +3,7 @@ const path = require("path")
 const app = express();
 const conn = require('../config/config');
 
-const allOrder = require("../controllers/employee/allOrder")
+// const allOrder = require("../controllers/employee/allOrder")
 // const login = require('../controllers/employee/loginEm');
 
 
@@ -34,7 +34,16 @@ router.post('/login-em', async (req,res,next) =>{
     }
 });
 
-router.get('/employeeSelect', allOrder.order);
+router.get('/employeeSelect', async (req,res,next) => {
+    try{    
+        const [row] = await conn.query("select *, DATE_FORMAT(date_checkout, '%Y-%m-%d') AS date_checkout from orders")
+        // console.log(row);
+        // console.log("asd");
+        res.send({order: row})
+    }catch(err){
+
+    }
+});
 
 
 exports.router = router;
