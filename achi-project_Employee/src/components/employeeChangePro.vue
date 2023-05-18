@@ -58,7 +58,7 @@
                 </div>
                 <div class="row py-2">
                     <div class="col-3 d-flex py-2">
-                        <h4>จำนวนสินค้าทุกขนาด 12 ชิ้น</h4>
+                        <h4>จำนวนสินค้าทุกขนาด {{sum}} ชิ้น</h4>
                     </div>
                     <div class="col-8 d-flex py-2">
                         <!-- <div class="form-group col-8 mx-4" style="display: inline;"> -->
@@ -93,13 +93,13 @@
                                 <th>จำนวน</th>
                             </thead>
                             <tbody style="background-color: #222222; font-size: 20px; display: block;" class="order_flow">
-                                <tr v-for="(item, index) in product_info" :key="item" :index="index" 
+                                <tr v-for="(item, index) in products" :key="item" :index="index" 
                                     v-show="item.product_id.toString().includes(search) && (find_size == -1 ? true : item.size == find_size ? true: false) 
                                     && (color === 'all' ? true: item.color.toLowerCase().includes(color.toLowerCase()) ? true:false)"
-                                    @click="look(item.product_id, item.pro_name, item.brand, item.price, item.amount); e_index = index;" class="hv"
+                                    @click="look(item.product_id, item.product_name, item.brand, item.price, item.amount); e_index = index;" class="hv"
                                 >   
                                     <td>{{ item.product_id }}</td>
-                                    <td >{{ item.pro_name }}</td>
+                                    <td >{{ item.product_name }}</td>
                                     <td class="text-center"> &nbsp;{{ item.size }} EUR</td>
                                     <td>{{ item.color }}</td>
                                     <td class="" style="max-width: 60px !important;">
@@ -221,9 +221,14 @@
         </div>
         
     </div>
+
+    <!-- <div>{{ product.amount }}</div>
+
+     -->
 </template>
     
 <script>
+import axios from 'axios';
 import product from '../data_json/product.js'
 export default {
     data() {
@@ -238,13 +243,25 @@ export default {
             e_price: 0,
             e_amount: 0,
             e_index: -1,
-            id:localStorage.getItem("idEm")
+            id:localStorage.getItem("idEm"),
+            products:[],
+            sum:0
         }
     },
     
     created(){
         // this.product_info = JSON.parse(localStorage.getItem("product_key"));
-        
+        const rub = axios.get("http://localhost:4000/emChangePro");
+
+        rub.then(res => {
+            this.products = res.data.product
+        })
+
+        this.products.forEach(rr => {
+            this.sum += Number(rr.amount)
+        })
+
+        // ทำไง555555
     },
     methods:{
         look(id, name, brad, price, amo){

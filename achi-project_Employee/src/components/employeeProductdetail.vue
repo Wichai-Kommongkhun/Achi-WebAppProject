@@ -114,6 +114,7 @@
         </div>
 
     </div>
+
 </template>
     
 <script>
@@ -130,12 +131,13 @@ export default {
             amount:0,
             find_size: -1,
             color: 'all',
+            sum:0
         }
     },
     created(){
         this.product_info = JSON.parse(localStorage.getItem("product_key"));
         const pro_id = new URLSearchParams(window.location.search);
-        console.log(pro_id.get('pro_id'));
+        // console.log(pro_id.get('pro_id'));
         this.search = pro_id.get('pro_id');
 
         var set_d = true;
@@ -153,11 +155,11 @@ export default {
             }
 
         });
-        const user = {
-            pro_id:this.p_id
-        }
+        // const user = {
+        //     pro_id:this.p_id
+        // }
         axios.get("http://localhost:4000/emProde",{
-            user:user
+            user:"asdff"
         })
     },
     methods:{

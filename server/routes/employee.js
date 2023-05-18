@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path")
 const app = express();
 const conn = require('../config/config');
+const { log } = require("console");
 
 // const allOrder = require("../controllers/employee/allOrder")
 // const login = require('../controllers/employee/loginEm');
@@ -85,11 +86,20 @@ router.get("/emSelecttrue" , async (req,res,next) => {
 
 router.get("/emProde" , async (req,res,next) => {
     try{
-        const pro_id = req.body.user.pro_id;
-        console.log(pro_id);
-        console.log("asd");
+        console.log(req.body);
     }catch(err){
 
     }
-})
+});
+
+router.get("/emChangePro", async (req,res,next) => {
+    try{
+        const [row] = await conn.query("select products.product_id,product_name,size,color,amount from products join product_store using(product_id)")
+        // console.log(row);
+        res.send({product:row})
+    }catch(err){
+
+    }
+});
+
 exports.router = router;
