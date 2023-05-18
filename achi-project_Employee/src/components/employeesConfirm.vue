@@ -45,7 +45,7 @@
             </div>
             <label for="">แสดงคำสั่งซื้อวันที่ :</label>
             <div class="col-2 mx-3 input-group-sm">
-              <input type="date" placeholder="ระบุเลขที่คำสั่งซื้อ" class="form-control" />
+              <input type="date" placeholder="ระบุเลขที่คำสั่งซื้อ" class="form-control"  v-model="search_date"/>
             </div>
           </div>
         </div>
@@ -64,13 +64,12 @@
               </thead>
               <!-- v-show="item.order_number.toString().includes(search)" -->
               <tbody style="background-color: #222222; color: aliceblue">
-                <tr class="size_tr" v-for="item in order" :key="item"
-                 v-show="item.order_number.toString().includes(search) && (!item.tag_number == true ? true: false)"
-                 >
-                  <td>{{ item.order_number }}</td>
-                  <td>{{ item.date_sales }}</td>
-                  <td>{{ sumPrice(item.chart) }} THB</td>
-                  <td>{{ item.pay_success }}</td>
+                <tr class="size_tr" v-for="item in orders" :key="item" v-show="item.order_id.toString().includes(search)  && item.date_checkout.toString().includes(search_date)">
+                  <td>{{ item.order_id }}</td>
+                  <td>{{ item.date_checkout }}</td>
+                  <td>{{ item.price }} THB</td>
+                  <td v-if="item.payment_status == 1">ชำระเงินสำเร็จ</td>
+                  <td v-else>ยังไม่ได้ชำระเงิน</td>
                   <td>
                     <input type="text" class="form-control input-group-sm form-cc" v-model="send" />
                   </td>
@@ -117,9 +116,17 @@
       </div>
     </div>
   </div>
+
+
+  <!-- <div style="color: aliceblue;">
+    {{ orders }}
+  </div> -->
+
+
 </template>
   
 <script>
+import axios from 'axios';
 import order from '../data_json/orders.js';
 export default {
   data() {
@@ -128,7 +135,9 @@ export default {
       order: order,
       send: '',
       search: '',
-      id:''
+      id:'',
+      orders:[],
+      search_date:''
     };
   },
   methods: {
@@ -145,11 +154,26 @@ export default {
         return sum;
     },
     sendTag(){
-      alert("ส่งเลข " + this.send)
+      alert("ส่งเลข " + this.send);
+
+      const user = {
+        tag:this.send
+      }
+      axios.post("http://localhost:4000/emCon",{
+          user:user
+      });
+
     },
   },
   created() {
       this.id = localStorage.getItem("idEm");
+
+      const rub = axios.get("http://localhost:4000/emCon");
+
+      rub.then(res => {
+        this.orders = res.data.notag;
+      })
+
     }
 };
 </script>

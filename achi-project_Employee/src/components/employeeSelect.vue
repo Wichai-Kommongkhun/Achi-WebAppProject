@@ -42,28 +42,17 @@
           </div>
           <div class="col-4">
             <div class="form-check mx-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @click="pay_success=1" >
+              <input class="form-check-input" type="radio" value="0" name="0" id="flexCheckDefault" @click="pay_success=1" >
               <label class="form-check-label" for="flexCheckDefault" >
                 ที่ชำระเงินสำเร็จ
               </label>
             </div>
-            <div class="form-check mx-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault" >
-                ที่ยังไม่ได้รับเลขติดตามพัสดุ
-              </label>
-            </div>
+
           </div>
           <div class="col-4">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <input class="form-check-input" type="radio" value="0"  name="0" id="flexCheckDefault" @click="pay_success=0">
               <label class="form-check-label" for="flexCheckDefault">
-                แสดงคำสั่งซื้อทั้งหมด
-              </label>
-            </div>
-            <div class="form-check ">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="pay_fail">
-              <label class="form-check-label" for="flexCheckDefault ">
                 ที่ยังไม่ชำระเงิน
               </label>
             </div>
@@ -72,7 +61,7 @@
 
         <div class="row py-4" style="color: aliceblue;">
           <div class="col-12 d-flex">
-            <label for="">ค้นหาคำสั่งซื้อ :</label>
+            <label for="" >ค้นหาคำสั่งซื้อ :</label>
             <div class="col-2 mx-3 input-group-sm">
               <input type="text" placeholder="ระบุเลขที่คำสั่งซื้อ" class="form-control" v-model="search">
             </div>
@@ -97,7 +86,7 @@
               </thead>
               <tbody style="background-color: #222222; color: aliceblue;" >
                 <tr class="size_tr" v-for="item in order" :key="item" v-show="item.order_id.toString().includes(search) && item.date_checkout.toString().includes(search_date)
-                && item.payment_status.toString().includes(pay_success)" >
+                && item.payment_status.toString().includes(pay_success) " >
                   <td>{{ item.order_id }}</td>
                   <td>{{ item.date_checkout }}</td>
                   <td >{{ item.price }}</td>
@@ -122,12 +111,12 @@
       <div class="row">
         <div class="col h_max">
           <!-- for some think in future -->
-        </div>
+        </div>  
       </div>
     </div>
   </div>
 
-<!-- <div style="color: aliceblue;"> {{ pay_success }}</div> -->
+<!-- <div style="color: aliceblue;"> {{ pay_success }} asd</div> -->
 
 
 </template>
@@ -176,8 +165,7 @@
         order:[],
         search_date:'',
         pay_success:'',
-        pay_fail:'',
-        no_tag:''
+
  
       }
     },

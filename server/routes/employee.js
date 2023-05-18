@@ -46,4 +46,25 @@ router.get('/employeeSelect', async (req,res,next) => {
 });
 
 
+router.get('/emCon', async (req,res,next) => {
+    try{
+        const [row] = await conn.query("select * ,DATE_FORMAT(date_checkout, '%Y-%m-%d') AS date_checkout from orders where parcel_number is null");
+        // console.log(row);
+        res.send({notag:row})
+    }catch(err){    
+
+    }
+
+});
+
+router.post("/emCon", async (req,res,next) => {
+    try{
+        const tag = req.body.user.tag;
+        console.log(tag);
+        const [row] = await conn.query("update  orders set parcel_number = ? where id = ?",tag)
+    }catch(err){
+        
+    }
+
+})
 exports.router = router;
