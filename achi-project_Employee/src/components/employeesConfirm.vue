@@ -74,7 +74,7 @@
                     <input type="text" class="form-control input-group-sm form-cc" v-model="send" />
                   </td>
                   <td>
-                    <button type="button" class="btn btn-sm btn-warning" @click="sendTag()">
+                    <button type="button" class="btn btn-sm btn-warning" @click="sendTag(item.order_id)">
                       ยืนยัน
                     </button>
                   </td>
@@ -137,7 +137,7 @@ export default {
       search: '',
       id:'',
       orders:[],
-      search_date:''
+      search_date:'',
     };
   },
   methods: {
@@ -153,15 +153,18 @@ export default {
         });
         return sum;
     },
-    sendTag(){
+    sendTag(id){
       alert("ส่งเลข " + this.send);
-
+      
       const user = {
-        tag:this.send
+        tag:this.send,
+        tag_id:id
       }
-      axios.post("http://localhost:4000/emCon",{
+      axios.put("http://localhost:4000/emCon",{
           user:user
       });
+
+      window.location.href = "/emCon"
 
     },
   },

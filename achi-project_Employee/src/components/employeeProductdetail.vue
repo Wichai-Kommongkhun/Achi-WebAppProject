@@ -117,7 +117,7 @@
 </template>
     
 <script>
-    
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -153,7 +153,12 @@ export default {
             }
 
         });
-
+        const user = {
+            pro_id:this.p_id
+        }
+        axios.get("http://localhost:4000/emProde",{
+            user:user
+        })
     },
     methods:{
         logout(){

@@ -57,14 +57,39 @@ router.get('/emCon', async (req,res,next) => {
 
 });
 
-router.post("/emCon", async (req,res,next) => {
+router.put("/emCon", async (req,res,next) => {
     try{
         const tag = req.body.user.tag;
+        const id = req.body.user.tag_id;
         console.log(tag);
-        const [row] = await conn.query("update  orders set parcel_number = ? where id = ?",tag)
+        console.log(id);
+
+        const [row] = await conn.query("update  orders set parcel_number = ? where order_id = ?",[tag,id])
+        console.log(row);
     }catch(err){
         
     }
+});
 
+router.get("/emSelecttrue" , async (req,res,next) => {
+    try{
+        const [row] = await conn.query("select products.product_id,product_name,brand,price,sum(amount) as amount from products join product_store using (product_id) group by product_id")
+        // console.log(row);
+        // res.send(row)
+        // console.log("asd");
+        res.send({product:row})
+    }catch(err){
+
+    }
+});
+
+router.get("/emProde" , async (req,res,next) => {
+    try{
+        const pro_id = req.body.user.pro_id;
+        console.log(pro_id);
+        console.log("asd");
+    }catch(err){
+
+    }
 })
 exports.router = router;
