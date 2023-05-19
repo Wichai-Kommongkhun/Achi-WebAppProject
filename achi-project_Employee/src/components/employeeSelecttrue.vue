@@ -36,7 +36,7 @@
             <div class="col-9 mx-3">
                 <div class="row" style="color:aliceblue;">
                     <div class="col">
-                        <h4>รหัสพนักงาน {{ employee_ID }}</h4>
+                        <h4>รหัสพนักงาน {{ id }}</h4>
                         <h5>แสดงสินค้าในคลัง</h5>
                     </div>
                 </div>
@@ -63,11 +63,11 @@
                                 </tr>
                             </thead>
                             <tbody style="background-color: #222222; font-size: 20px; display: block;" class="flow2">
-                                <tr class="size_tr" v-for="(item, index) in product_info" :key="item" :index="index"
+                                <tr class="size_tr" v-for="item in product" :key="item"
                                     v-show="item.product_id.toString().includes(search)">
                                     <!-- v-if="item.product_id.includes(search)" -->
                                     <td>{{ item.product_id }}</td>
-                                    <td style="max-width: 200px !important;">{{ item.pro_name }}</td>
+                                    <td style="max-width: 200px !important;">{{ item.product_name }}</td>
                                     <td>{{ item.brand }}</td>
                                     <td>{{ item.price }}</td>
                                     <td class="text-center">{{ item.amount }}</td>
@@ -91,12 +91,14 @@
                 </div>
             </div>
         </div>
-
-
     </div>
+
+<!-- <div style="color: white;">{{ product }}</div> -->
+
 </template>
     
 <script>
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -104,6 +106,8 @@ export default {
             product_info: '',
             admin_info: '',
             search: '',
+            id:'',
+            product:[]
 
         }
     },
@@ -112,6 +116,13 @@ export default {
         this.admin_info = JSON.parse(localStorage.getItem("admin_key"));
         console.log(this.product_info);
         console.log(this.product_info.length);
+        this.id = localStorage.getItem("idEm");
+
+        const rub = axios.get("http://localhost:4000/emSelecttrue");
+
+        rub.then(res =>{
+            this.product = res.data.product;
+        })  
     },
     watch: {
         search(newVal, oldVal) {
@@ -124,7 +135,8 @@ export default {
             localStorage.removeItem('employee_id');
             window.location.href = '/login';
         }
-    }
+    },
+    
 
 }
 

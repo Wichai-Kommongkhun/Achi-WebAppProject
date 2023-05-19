@@ -6,15 +6,21 @@
         <a href="/employeeSelect" @click="go()"><img src="@/assets/logo.png" alt="" width="120"></a>
       </div>
     </div>
-    <!-- <router-view v-if="login"></router-view> -->
-    <!-- <Login v-else></Login> -->
+    <!-- <router-view v-if="login"></router-view>
+    <Login v-else></Login> -->
     <router-view></router-view>
   </div>
 
-
+  <!-- <Product v-if="fales">
+  </Product> -->
+  
+  <!-- <Admin v-if="fales">
+  </Admin> -->
 </template>
 
 <script>
+
+
 
 export default {
   name: 'App',
@@ -22,21 +28,12 @@ export default {
   },
   data(){
     return{
-      
+      // product_info: JSON.parse(localStorage.getItem("product_key")), 
+      // admin_info: JSON.parse(localStorage.getItem("admin_key"))
     }
   },
   created() {
-      // console.log();
-      // localStorage.setItem("product_key", JSON.stringify(this.prd));
-      // localStorage.setItem("admin_key" ,JSON.stringify(this.adm));
-      
-      // try{
-      //   this.login = (localStorage.getItem("Is_login") === "true");
-      //   console.log("Login-"+" "+this.login);
-      // }catch(e){
-      //   localStorage.setItem("Is_login", false);
-      //   this.login = this.login = (localStorage.getItem("Is_login") === "true");
-      // }
+   
   },
 
   methods:{

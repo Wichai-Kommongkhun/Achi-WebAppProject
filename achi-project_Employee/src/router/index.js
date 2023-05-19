@@ -52,7 +52,7 @@ const routes = [
     },
 
     {
-        path:"/login",
+        path:"/login-em",
         name: "login",
         component: login
     },

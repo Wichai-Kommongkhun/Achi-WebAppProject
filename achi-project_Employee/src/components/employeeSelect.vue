@@ -32,7 +32,7 @@
       <div class="col-8 mx-3">
         <div class="row" style="color:aliceblue;">
           <div class="col">
-            <h3>รหัสพนักงาน {{ employee_ID }}</h3>
+            <h3>รหัสพนักงาน {{ id }}</h3>
             <h5>รายการคำสั่งซื้อ</h5>
           </div>
         </div>
@@ -42,27 +42,16 @@
           </div>
           <div class="col-4">
             <div class="form-check mx-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
+              <input class="form-check-input" type="radio" value="0" name="0" id="flexCheckDefault" @click="pay_success=1" >
+              <label class="form-check-label" for="flexCheckDefault" >
                 ที่ชำระเงินสำเร็จ
               </label>
             </div>
-            <div class="form-check mx-2">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                ที่ยังไม่ได้รับเลขติดตามพัสดุ
-              </label>
-            </div>
+
           </div>
           <div class="col-4">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                แสดงคำสั่งซื้อทั้งหมด
-              </label>
-            </div>
-            <div class="form-check ">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <input class="form-check-input" type="radio" value="0"  name="0" id="flexCheckDefault" @click="pay_success=0">
               <label class="form-check-label" for="flexCheckDefault">
                 ที่ยังไม่ชำระเงิน
               </label>
@@ -72,13 +61,13 @@
 
         <div class="row py-4" style="color: aliceblue;">
           <div class="col-12 d-flex">
-            <label for="">ค้นหาคำสั่งซื้อ :</label>
+            <label for="" >ค้นหาคำสั่งซื้อ :</label>
             <div class="col-2 mx-3 input-group-sm">
               <input type="text" placeholder="ระบุเลขที่คำสั่งซื้อ" class="form-control" v-model="search">
             </div>
             <label for="">แสดงคำสั่งซื้อวันที่ :</label>
             <div class="col-2 mx-3 input-group-sm">
-              <input type="date" placeholder="ระบุเลขที่คำสั่งซื้อ" class="form-control">
+              <input type="date" placeholder="ระบุเลขที่คำสั่งซื้อ" class="form-control" v-model="search_date">
             </div>
           </div>
         </div>
@@ -95,14 +84,15 @@
                   <th></th>
                 </tr>
               </thead>
-              <tbody style="background-color: #222222; color: aliceblue;">
-                <tr class="size_tr" v-for="(item) in orders" :key="item" v-show="item.order_number.toString().includes(search)">
-                  <td>{{ item.order_number}}</td>
-                  <td>{{ item.date_sales }}</td>
-                  <td>{{ sumPrice(item.chart) }}</td>
-                  <td>{{ item.pay_success }}</td>
-                  <td>{{ item.tag_number }}</td>
-                  <td><a :href="'/order-detail?oid='+item.order_number" style="color: aliceblue;">รายละเอียด</a></td>
+              <tbody style="background-color: #222222; color: aliceblue;" >
+                <tr class="size_tr" v-for="item in order" :key="item" v-show="item.order_id.toString().includes(search) && item.date_checkout.toString().includes(search_date)
+                && item.payment_status.toString().includes(pay_success) " >
+                  <td>{{ item.order_id }}</td>
+                  <td>{{ item.date_checkout }}</td>
+                  <td >{{ item.price }}</td>
+                  <td v-if="item.payment_status == 1">ชำระเงินสำเร็จ</td>
+                  <td v-else>ยังไม่ได้ชำระเงิน</td>
+                  <td><a :href="'http://localhost:8081/order-detail?oid='+item.order_id" style="color: aliceblue;">รายละเอียด</a></td>
                 </tr>
               </tbody>
             </table>
@@ -121,16 +111,20 @@
       <div class="row">
         <div class="col h_max">
           <!-- for some think in future -->
-        </div>
+        </div>  
       </div>
     </div>
   </div>
-  
+
+<!-- <div style="color: aliceblue;"> {{ pay_success }} asd</div> -->
+
+
 </template>
   
 <script>
-  import order from '../data_json/orders.js';
 
+  import order from '../data_json/orders.js';
+  import axios  from 'axios';
 
     // function exportTableToExcel(tableID, filename = ''){
     //   var downloadLink;
@@ -160,12 +154,19 @@
     //   }   
     // }
 
+ 
   export default {
     data() {
       return {
         employee_ID: localStorage.getItem('employee_id'),
         orders: order,
         search: '',
+        id:'',
+        order:[],
+        search_date:'',
+        pay_success:'',
+
+ 
       }
     },
     methods: {
@@ -183,10 +184,18 @@
       },
       html_to_ex(){
         window.print()
-      }
+      },
+
     },
     created() {
       console.log(order);
+      this.id = localStorage.getItem("idEm");
+      // this.allorder = res.data.status;
+      const rub = axios.get("http://localhost:4000/employeeSelect")
+
+      rub.then(res => {
+        this.order = res.data.order; 
+      });
     }
   }
 </script>
