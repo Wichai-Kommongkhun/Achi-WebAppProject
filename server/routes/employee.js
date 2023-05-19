@@ -108,12 +108,40 @@ router.get("/emChangePro", async (req,res,next) => {
 
 router.put("/emChangePro", async (req,res,next) => {
     try{
-        const id = req.body;
-        console.log(id);
+        const id = req.body.id;
+        const name = req.body.name;
+        const price = req.body.price;
+        const detail = req.body.detail;
+
+        const [row] = await conn.query("update products set product_name = ? ,price = ?,detail=? where product_id =?",
+        [name,price,detail,id])
+        console.log(row);
     }catch(err){
 
     }
 });
+
+router.post("/emChangePro" , async (req,res,next) => {
+    try{
+        
+        const id = req.body.id;
+        const size = req.body.size;
+        const amount = req.body.amount;
+
+        console.log(req.body.idy);
+        const [row] = await conn.query("select size from product_store where size = ?",size);
+
+        if (row.length == 0){
+            const [row2] = await conn.query("insert into product_store(product_id,size,amount) values (?,?,?)",[id,size,amount])
+            res.send({error:"สำเร็จ"})
+        }
+        else{
+            res.send({error:"ไม่สามารถแก้ไขได้"});
+        }
+    }catch(err){
+
+    }
+})
 
 router.get("/order-detail/employee/:oid",orderController.getOne_order)
 

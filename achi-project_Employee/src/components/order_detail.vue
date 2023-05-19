@@ -241,10 +241,10 @@ export default {
         const getData = new URLSearchParams(window.location.search);
         this.oid = getData.get("oid");
         const info = await axios.get("http://localhost:4000/order-detail/employee/"+this.oid+"/?admin=admin")
-        console.log(info);
-        this.order = info.order;
-        this.cart = info.cart;
-        this.address = info.address;
+        console.log(info.data);
+        this.order = info.data.order;
+        this.cart = info.data.cart;
+        this.address = info.data.address;
     },
     methods: {},
 };

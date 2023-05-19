@@ -108,7 +108,7 @@
                                                 
                                                 <button class="btn btn-primary mx-2" @click="add(index,item.product_id,item.size)">เพิ่ม</button>
                                                 <h3 class="mx-2">{{ item.amount }} </h3>
-                                                <button class="btn btn-warning mx-2" @click="reduct(index)">ลด</button>
+                                                <button class="btn btn-warning mx-2" @click="reduct(index,item.product_id,item.size)">ลด</button>
                                                 <!-- <button type="button" class="btn btn-outline-secondary">-</button>
                                                     <button type="button" class="btn btn-outline-secondary">+</button> -->
                                                 <a class="av" 
@@ -176,7 +176,7 @@
                             <div class="col-6 d-flex py-2">
                                 <h5>ขนาด :</h5>
                                 <div class="col-4 mx-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" v-model="e_size">
                                 </div>
                                 <h5 style="color: yellow;">หมายเหตุ* หน่วยเป็น EU</h5>
                             </div>
@@ -187,7 +187,7 @@
                             <div class="col-6 d-flex py-2">
                                 <h5>จำนวน :</h5>
                                 <div class="col-4 mx-2">
-                                    <input type="number" class="form-control">
+                                    <input type="number" class="form-control" v-model="e_count">
                                 </div>
                             </div>
                         </div>
@@ -230,7 +230,10 @@ export default {
             id:localStorage.getItem("idEm"),
             products:[],
             sum:0,
-            e_de:''
+            e_de:'',
+            e_size:'',
+            e_count:'',
+            check:''
         }
     },
     
@@ -324,7 +327,37 @@ export default {
             localStorage.removeItem('employee_id');
             window.location.href = '/login';
         },
-        send(){
+        async send(){
+
+            for(let i = 0;i<this.products.length;i++){
+                if (this.products[i].product_id == this.e_id){
+                    if (confirm("ยืนยันการบันทึก")){
+                        this.products[i].product_name = this.e_name;
+                        this.products[i].brand = this.e_brand;
+                        this.products[i].price = this.e_price;
+                        this.products[i].amount = this.e_amount;
+                        this.products[i].detail = this.e_de; 
+                        
+                    }
+                    break
+                }
+
+            }
+            const product = {
+                id:this.e_id,
+                size:this.e_size,
+                amount:this.e_count
+            }
+
+            await axios.post("http://localhost:4000/emChangePro", product)
+
+            const rub = axios.get("http://localhost:4000/emChangePro")
+
+            await rub.then(err => {
+                this.check = err.data.error;
+            })
+
+            console.log(rub);
 
         },
     }
