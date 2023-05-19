@@ -45,13 +45,13 @@
                             <h5 style="display: inline">รหัสสินค้า : {{ p_id }}</h5>
                         </div>
                         <div>
-                            <h5 style="display: inline">ชื่อสินค้า : {{ p_name }}</h5>
+                            <h5 style="display: inline">ชื่อสินค้า : {{ product[0].product_name }}</h5>
                         </div>
                         <div>
-                            <h5 style="display: inline">แบรนด์ : {{ brand }}</h5>
+                            <h5 style="display: inline">แบรนด์ : {{ product[0].brand }}</h5>
                         </div>
                         <div>
-                            <h5 style="display: inline">ราคา : {{ price }}</h5>
+                            <h5 style="display: inline">ราคา : {{ product[0].price }}</h5>
                         </div>
                     </div>
                 </div>
@@ -90,11 +90,12 @@
                                 <th>สี</th>
                                 <th>จำนวน</th>
                             </thead>
-                            <tbody style="background-color: #222222;" v-for="item in product_info" :key="item">
+                            <tbody style="background-color: #222222;" v-for="item in product" :key="item">
                                 <tr class="size_tr"  
-                                v-if="(item.product_id == search) && (find_size == -1 ? true : item.size == find_size ? true: false) 
+                                v-if=" (find_size == -1 ? true : item.size == find_size ? true: false) 
                                 && (color === 'all' ? true: item.color.toLowerCase().includes(color.toLowerCase()) ? true:false)">
                                     <!-- v-if="item.size != item.size" -->
+
                                     <td> {{item.size}} EUR</td>
                                     <td> {{item.color}} </td>
                                     <td> {{item.amount}}</td>
@@ -115,6 +116,11 @@
 
     </div>
 
+
+<!-- <div style="color: aliceblue;">{{ product }}</div>
+
+ -->
+
 </template>
     
 <script>
@@ -131,7 +137,8 @@ export default {
             amount:0,
             find_size: -1,
             color: 'all',
-            sum:0
+            sum:0,
+            product:[]
         }
     },
     created(){
@@ -158,7 +165,13 @@ export default {
         const user = {
             pro_id:this.p_id
         }
-        axios.post("http://localhost:4000/emProde/"+user.pro_id)
+        const rub = axios.get("http://localhost:4000/emProde/"+user.pro_id);
+
+        
+        // const rub = axios.get("http://localhost:4000/emProde/:pid");
+        rub.then(res => {
+            this.product = res.data.product;
+        })
     },
     methods:{
         logout(){

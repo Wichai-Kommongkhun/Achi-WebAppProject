@@ -92,7 +92,7 @@
                   <td >{{ item.price }}</td>
                   <td v-if="item.payment_status == 1">ชำระเงินสำเร็จ</td>
                   <td v-else>ยังไม่ได้ชำระเงิน</td>
-                  <td><a :href="'/order-detail?oid='+item.order_id" style="color: aliceblue;">รายละเอียด</a></td>
+                  <td><a :href="'http://localhost:8081/order-detail?oid='+item.order_id" style="color: aliceblue;">รายละเอียด</a></td>
                 </tr>
               </tbody>
             </table>
