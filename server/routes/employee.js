@@ -3,7 +3,7 @@ const path = require("path")
 const app = express();
 const conn = require('../config/config');
 const { log } = require("console");
-
+const orderController = require('../controllers/business/order-controller');
 // const allOrder = require("../controllers/employee/allOrder")
 // const login = require('../controllers/employee/loginEm');
 
@@ -105,5 +105,16 @@ router.get("/emChangePro", async (req,res,next) => {
 
     }
 });
+
+router.put("/emChangePro", async (req,res,next) => {
+    try{
+        const id = req.body;
+        console.log(id);
+    }catch(err){
+
+    }
+});
+
+router.get("/order-detail/employee/:oid",orderController.getOne_order)
 
 exports.router = router;

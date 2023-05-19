@@ -86,13 +86,13 @@
               </thead>
               <tbody style="background-color: #222222; color: aliceblue;" >
                 <tr class="size_tr" v-for="item in order" :key="item" v-show="item.order_id.toString().includes(search) && item.date_checkout.toString().includes(search_date)
-                && item.payment_status.toString().includes(pay_success) " >
+                && item.payment_status.toString().includes(pay_success)">
                   <td>{{ item.order_id }}</td>
                   <td>{{ item.date_checkout }}</td>
                   <td >{{ item.price }}</td>
                   <td v-if="item.payment_status == 1">ชำระเงินสำเร็จ</td>
                   <td v-else>ยังไม่ได้ชำระเงิน</td>
-                  <td><a :href="'http://localhost:8081/order-detail?oid='+item.order_id" style="color: aliceblue;">รายละเอียด</a></td>
+                  <td><a :href="'/order-detail?oid='+item.order_id" style="color: aliceblue;">รายละเอียด</a></td>
                 </tr>
               </tbody>
             </table>

@@ -83,14 +83,6 @@
             </table>
           </div>
         </div>
-        <div class="row py-2">
-          <div class="col">
-            <button type="button" class="btn btn-success">
-              พิมพ์ข้อมูลการสั่งซื้อ
-            </button>
-            <br />
-          </div>
-        </div>
         <div class="row py-3">
           <div class="col">
             <h4>เลขติดตามพัสดุ คืออะไร?</h4>
