@@ -84,9 +84,10 @@ router.get("/emSelecttrue" , async (req,res,next) => {
     }
 });
 
-router.get("/emProde" , async (req,res,next) => {
+router.get("/emProde/:pid" , async (req,res,next) => {
     try{
-        console.log(req.body);
+        console.log(req.params.pid);
+        
     }catch(err){
 
     }

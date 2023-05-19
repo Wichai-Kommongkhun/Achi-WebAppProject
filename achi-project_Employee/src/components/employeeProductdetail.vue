@@ -155,12 +155,10 @@ export default {
             }
 
         });
-        // const user = {
-        //     pro_id:this.p_id
-        // }
-        axios.get("http://localhost:4000/emProde",{
-            user:"asdff"
-        })
+        const user = {
+            pro_id:this.p_id
+        }
+        axios.post("http://localhost:4000/emProde/"+user.pro_id)
     },
     methods:{
         logout(){
