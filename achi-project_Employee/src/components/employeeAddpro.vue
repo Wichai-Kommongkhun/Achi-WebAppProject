@@ -167,6 +167,9 @@ export default {
                 for (let i = 0;i<this.pictures.length;i++){
                     formData.append("picture", this.pictures[i])
                 }
+                // for (const file of this.pictures.value) {
+                //     formData.append('files', file) 
+                //     }
                 // console.log(formData);
                 // console.log(this.pictures);
             await axios.post("http://localhost:4000/emAddPro",formData)

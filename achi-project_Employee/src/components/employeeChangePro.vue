@@ -96,7 +96,7 @@
                                 <tr v-for="(item, index) in products" :key="item" :index="index" 
                                     v-show="item.product_id.toString().includes(search) && (find_size == -1 ? true : item.size == find_size ? true: false) 
                                     && (color === 'all' ? true: item.color.toLowerCase().includes(color.toLowerCase()) ? true:false)"
-                                    @click="look(item.product_id, item.product_name, item.brand, item.price, item.amount); e_index = index;" class="hv"
+                                    @click="look(item.product_id, item.product_name, item.detail, item.price, item.amount); e_index = index;" class="hv"
                                 >   
                                     <td>{{ item.product_id }}</td>
                                     <td >{{ item.product_name }}</td>
@@ -105,14 +105,13 @@
                                     <td class="" style="max-width: 60px !important;">
                                         <div class="row g-0">
                                             <div class="col-8 d-flex">
-                                                
-                                                <button class="btn btn-primary mx-2" @click="add(index,item.product_id,item.size) ; products[index].size += 1">เพิ่ม</button>
+                                                <button class="btn btn-primary mx-2" @click="add(index,item.product_id,item.size) ; products[index].amount += 1">เพิ่ม</button>
                                                 <h3 class="mx-2"> {{ item.amount }} </h3>
-                                                <button class="btn btn-warning mx-2" @click="reduct(index,item.product_id,item.size)">ลด</button>
+                                                <button class="btn btn-warning mx-2" @click="reduct(index,item.product_id,item.size) ; products[index].amount -= 1">ลด</button>
                                                 <!-- <button type="button" class="btn btn-outline-secondary">-</button>
                                                     <button type="button" class="btn btn-outline-secondary">+</button> -->
                                                 <a class="av" 
-                                                    @click="del(item.product_name,item.product_id, item.size, item.color, index)">
+                                                    @click="del(item.product_name,item.product_id, item.size, item.color, index) ">
                                                     <img src="@/assets/icons/trash-can-64.png" alt="" width="35" class="mx-2">
                                                 </a>
                                             </div>
@@ -151,7 +150,8 @@
                             <div class="col-4 d-flex">
                                 <h5 style="display: inline">รายละเอียดสินค้า :</h5>
                                 <div class="col-4 mx-2">
-                                    <input type="text" placeholder="" class="form-control" v-model="e_de">
+                                    <!-- <input type="text" placeholder="" class="form-control" v-model="e_detail"> -->
+                                    <textarea name="" id="" cols="100" rows="4" v-model="e_detail"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -206,9 +206,9 @@
         
     </div>
 
-    <!-- <div>{{ product.amount }}</div>
+    <div style="color: aliceblue;">{{ products }}</div>
 
-     -->
+    
 </template>
     
 <script>
@@ -233,7 +233,8 @@ export default {
             e_de:'',
             e_size:'',
             e_count:'',
-            check:''
+            check:'',
+            e_detail:''
         }
     },
     
@@ -251,10 +252,10 @@ export default {
 
     },
     methods:{
-        look(id, name, brad, price, amo){
+        look(id, name, detail, price, amo){
             this.e_id = id;
             this.e_name = name;
-            this.e_brand = brad;
+            this.e_detail = detail ;
             this.e_price = price;
             this.e_amount = amo
         },
@@ -265,16 +266,20 @@ export default {
             if (conF){
                 console.log("delete " + name);
                 console.log(index);
-                this.product_info.splice(index, 1);
+                this.products.splice(index, 1);
                 console.log(this.product_info);
             }else{
                 console.log("No del");
             }
+
             const product ={
                 del_id:id,
                 del_size:size
             }
-            await axios.delete("http://localhost:4000/emChangePro/"+ product.del_id+"/"+product.del_size)
+            await axios.delete("http://localhost:4000/emChangePro/"+ product.del_id+"/"+product.del_size);
+
+
+
         },
         async add(index,id,size){
             console.log(index);
@@ -326,18 +331,18 @@ export default {
                         this.products[i].amount = this.e_amount;
                         this.products[i].detail = this.e_de; 
                         
+                        const product = {
+                        id:this.e_id,
+                        name:this.e_name,
+                        price:this.e_price,
+                        detail:this.e_detail
+                            }
+                            await axios.put("http://localhost:4000/emChangePro", product)
+                            window.location.href = "/"
                     }
-                    break
+                    return null
                 }
             }
-
-            const product = {
-                id:this.e_id,
-                name:this.e_name,
-                price:this.e_price,
-                detail:this.e_de
-            }
-            await axios.put("http://localhost:4000/emChangePro", product)
             
         },
         logout(){

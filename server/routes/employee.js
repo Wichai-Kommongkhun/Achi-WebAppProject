@@ -98,7 +98,7 @@ router.get("/emProde/:pid" , async (req,res,next) => {
 
 router.get("/emChangePro", async (req,res,next) => {
     try{
-        const [row] = await conn.query("select products.product_id,product_name,size,color,amount from products join product_store using(product_id)")
+        const [row] = await conn.query("select products.product_id,product_name,size,color,amount,price,detail from products join product_store using(product_id)")
         // console.log(row);
         res.send({product:row})
     }catch(err){
@@ -122,6 +122,7 @@ router.put("/emChangePro", async (req,res,next) => {
         const [row] = await conn.query("update products set product_name = ? ,price = ?,detail=? where product_id =?",
         [name,price,detail,id])
         // console.log(row);
+
         const [add] = await conn.query("update product_store set amount =amount+1 where product_id=? and size=?",
         [add_id,add_size])
 
