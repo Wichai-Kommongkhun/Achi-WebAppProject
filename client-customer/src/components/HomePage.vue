@@ -51,7 +51,7 @@
       <div class="col-4 d-flex mx-4">
         <img src="@/assets/images/product_return.png" alt="delivery" />
         <div class="col py-4 mx-3" style="color: #fff">
-          <h3>คืนสินค้าภายใน 7 วัน</h3>
+          <h3>คืนสินค้าภายใน 14 วัน</h3>
         </div>
       </div>
     </div>

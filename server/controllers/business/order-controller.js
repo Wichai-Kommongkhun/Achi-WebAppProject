@@ -25,6 +25,11 @@ const getOne_order = async (req, res, next) =>{
              [Number(req.params.oid)]);
             //  console.log(order[0]);
             // console.log(order[0][0]);
+            if (req.query.admin === "admin"){
+                req.user_info = {
+                    customer_id: "admin"
+                }
+            }
         if (order[0][0].customer_id == req.user_info.customer_id || req.query.admin ==="admin"){
             console.log("OK");
             const address = await conn.query('select * from customer_address where address_number = ?', [

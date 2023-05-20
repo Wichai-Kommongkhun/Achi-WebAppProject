@@ -105,7 +105,7 @@
   <div class="container modal-login" v-show="search">
     <div class="row py-4">
       <div class="col text-center">
-        <h1>ยินดีต้นรับคุณสามารถค้นหาสินค้าภายในเว็บไซต์ได้ง่ายๆเพียงกรอกคำค้นหา</h1>
+        <h1>ยินดีต้อนรับคุณสามารถค้นหาสินค้าภายในเว็บไซต์ได้ง่ายๆเพียงกรอกคำค้นหา</h1>
       </div>
     </div>
     <div class="row mx-4">

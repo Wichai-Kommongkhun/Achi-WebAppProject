@@ -471,9 +471,16 @@ export default {
             }
         },
         async checkout() {
-            if (this.address_number <= -1) {
-                return alert("กรุณาเลือกที่อยู่");
+
+            if (this.delivery_price == 0){
+                console.log("รับที่ร้าน");
+                this.address_number = 99;
             }
+            else if (this.address_number <= -1 && this.delivery_price != 0) {
+                return alert("กรุณาเลือกที่อยู่");
+                
+            }
+
             var doc_deli = '';
             if (this.delivery_price == 0) {
                 doc_deli = "รับสินค้าที่ร้าน"
@@ -482,7 +489,6 @@ export default {
             } else if (this.delivery_price == 80) {
                 doc_deli = "จัดส่งสินค้าแบบพิเศษในราคา 80 บาท (1-2 วัน)"
             }
-
             const orde_infos = {
                 price: this.price_sum + Number(this.delivery_price) - Number(this.discount),
                 delivery: this.delivery_price,
@@ -499,6 +505,7 @@ export default {
             // service_checkout.payment(orde_info)
             window.location.href = 'http://localhost:4000/pay/?code=' + paytoken.data.payToken
             console.log(orde_infos);
+
         },
     },
 

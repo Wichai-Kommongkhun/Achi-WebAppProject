@@ -26,7 +26,6 @@
                 <div class="input-group mb-1">
                     <input type="text" class="form-control" v-model="last_name" required />
                 </div>
-
                 <div class="row py-1">
                     <div class="col-3">
                         <label for="inputPassword" class="form-label mt-3">
@@ -51,7 +50,6 @@
                         <!-- <input type="date" id="birthday" name="birthday"> -->
                     </div>
                 </div>
-
 
                 <label for="inputPassword" class="form-label mt-3">
                     <h3>email *</h3>
@@ -101,17 +99,13 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
-
             </form>>
             <div class="col-6 mx-4">
                 <img src="https://i.pinimg.com/originals/5b/7c/a4/5b7ca403ad99558099e8d93c9475537d.jpg"
                     class="img-fluid mx-4" alt="...">
-            </div><br>
-
+            </div>
+            <br>
         </div>
         <br />
     </div>
@@ -145,6 +139,7 @@ export default {
                         email:this.email,
                         phone:this.phone,
                         password:this.password,
+                        confirmPassword: this.confirm_password
                     }
                     try{
                        const create= await service_register.register(create_user);
@@ -152,10 +147,10 @@ export default {
                        if (create.data.status == true){
                             window.location.href = '/login';
                        }else{
-                            alert('Check from !!')
+                            alert('Check from !!');
                        }
                     }catch(er){
-                        console.log(er)
+                        console.log(er);
                     }
                 }else{
                     this.confirm_password = '';
@@ -187,6 +182,5 @@ export default {
     padding-top: 0px;
     padding-bottom: 10px;
     font-size: 20px;
-    
 }
 </style>
