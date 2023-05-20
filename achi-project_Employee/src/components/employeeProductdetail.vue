@@ -35,8 +35,8 @@
             <div class="col-8">
                 <div class="row" style="color:aliceblue;">
                     <div class="col-3">
-                        <h4>รหัสพนักงาน 12345</h4>
-                        <h5>รายละเอียดสินค้า</h5>
+                        <h4>รหัสพนักงาน {{ id }}</h4>
+                        <h5 style="width: 900px;">รายละเอียดสินค้า: {{ product[0].detail }}</h5>
                     </div>
                 </div>
                 <div class="row">
@@ -138,7 +138,8 @@ export default {
             find_size: -1,
             color: 'all',
             sum:0,
-            product:[]
+            product:[],
+            id:''
         }
     },
     created(){
@@ -146,7 +147,7 @@ export default {
         const pro_id = new URLSearchParams(window.location.search);
         // console.log(pro_id.get('pro_id'));
         this.search = pro_id.get('pro_id');
-
+        this.id = localStorage.getItem("idEm");
         var set_d = true;
         this.product_info.forEach(item => {
             console.log(item.product_id == this.search);

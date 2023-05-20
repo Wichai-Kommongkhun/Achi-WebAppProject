@@ -88,7 +88,7 @@ router.get("/emProde/:pid" , async (req,res,next) => {
     try{
         const id = req.params.pid;
         console.log(id);
-        const [row] = await conn.query("select products.product_name,brand,price,size,color,amount from product_store join products using (product_id) where product_id = ?",id)
+        const [row] = await conn.query("select products.product_name,brand,price,size,color,amount,detail from product_store join products using (product_id) where product_id = ?",id)
         res.send({product:row})
         // console.log(row);
     }catch(err){
