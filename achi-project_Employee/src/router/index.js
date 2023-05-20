@@ -61,7 +61,7 @@ const routes = [
         name:'order_detail',
         component: order_detail
     },
-
+    
 ]
 
 const router = createRouter({
