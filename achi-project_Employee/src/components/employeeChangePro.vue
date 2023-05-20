@@ -107,12 +107,12 @@
                                             <div class="col-8 d-flex">
                                                 
                                                 <button class="btn btn-primary mx-2" @click="add(index,item.product_id,item.size)">เพิ่ม</button>
-                                                <h3 class="mx-2">{{ item.amount }} </h3>
+                                                <h3 class="mx-2"> {{ item.amount }} </h3>
                                                 <button class="btn btn-warning mx-2" @click="reduct(index,item.product_id,item.size)">ลด</button>
                                                 <!-- <button type="button" class="btn btn-outline-secondary">-</button>
                                                     <button type="button" class="btn btn-outline-secondary">+</button> -->
                                                 <a class="av" 
-                                                    @click.stop="del(item.pro_name, item.size, item.color, index)">
+                                                    @click="del(item.product_name,item.product_id, item.size, item.color, index)">
                                                     <img src="@/assets/icons/trash-can-64.png" alt="" width="35" class="mx-2">
                                                 </a>
                                             </div>
@@ -258,7 +258,7 @@ export default {
             this.e_price = price;
             this.e_amount = amo
         },
-        del(name, size, color, index){
+        async del(name,id, size, color, index){
             console.log(index);
             var conF = confirm(`จะลบ ${name} \n ขนาด: ${size} สี: ${color}`);
             console.log("conF "+ conF);
@@ -270,18 +270,36 @@ export default {
             }else{
                 console.log("No del");
             }
+            const product ={
+                del_id:id,
+                del_size:size
+            }
+            await axios.delete("http://localhost:4000/emChangePro", product)
         },
-        add(index){
+        async add(index,id,size){
             console.log(index);
             console.log(this.product_info[index].amount)
-            this.product_info[index].amount = this.product_info[index].amount +1
+            console.log(id);
+            console.log(size);
+            this.product_info[index].amount = this.product_info[index].amount +1;
+
+            const product = {
+                add_id:id,
+                add_size:size
+            }
+            await axios.put("http://localhost:4000/emChangePro", product)
         },
-        reduct(index){
+        async reduct(index,id,size){
             console.log(index);
             console.log(this.product_info[index].amount)
             if (this.product_info[index].amount > 1){
                 this.product_info[index].amount = this.product_info[index].amount -1
             }
+            const product = {
+                de_id:id,
+                de_size:size
+            }
+            await axios.put("http://localhost:4000/emChangePro", product)
         },
         async record(){
             if (!this.e_id){

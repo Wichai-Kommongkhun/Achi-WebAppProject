@@ -112,10 +112,23 @@ router.put("/emChangePro", async (req,res,next) => {
         const name = req.body.name;
         const price = req.body.price;
         const detail = req.body.detail;
+        const add_id = req.body.add_id;
+        const add_size = req.body.add_size;
+        const de_id = req.body.de_id;
+        const de_size = req.body.de_size
+        // console.log(add_id,add_size);
+        
 
         const [row] = await conn.query("update products set product_name = ? ,price = ?,detail=? where product_id =?",
         [name,price,detail,id])
-        console.log(row);
+        // console.log(row);
+        const [add] = await conn.query("update product_store set amount =amount+1 where product_id=? and size=?",
+        [add_id,add_size])
+
+        const [del] = await conn.query("update product_store set amount =amount-1 where product_id=? and size=?",
+        [de_id,de_size])
+
+
     }catch(err){
 
     }
@@ -128,7 +141,7 @@ router.post("/emChangePro" , async (req,res,next) => {
         const size = req.body.size;
         const amount = req.body.amount;
 
-        console.log(req.body.idy);
+        // console.log(req.body.idy);
         const [row] = await conn.query("select size from product_store where size = ?",size);
 
         if (row.length == 0){
@@ -141,7 +154,16 @@ router.post("/emChangePro" , async (req,res,next) => {
     }catch(err){
 
     }
+});
+
+router.delete("/emChangePro" , async (req,res,next) => {
+    try{
+        console.log(req.body);
+    }catch(err){
+
+    }
 })
+
 
 router.get("/order-detail/employee/:oid",orderController.getOne_order)
 
