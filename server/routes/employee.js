@@ -156,9 +156,15 @@ router.post("/emChangePro" , async (req,res,next) => {
     }
 });
 
-router.delete("/emChangePro" , async (req,res,next) => {
+router.delete("/emChangePro/:id/:size" , async (req,res,next) => {
     try{
-        console.log(req.body);
+        console.log(req.params);
+        const id = req.params.id;
+        const size = req.params.size;
+        console.log(id,size);
+
+        const [row] = await conn.query("delete from product_store where product_id =? and size=?",
+        [id,size])
     }catch(err){
 
     }

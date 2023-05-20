@@ -274,7 +274,7 @@ export default {
                 del_id:id,
                 del_size:size
             }
-            await axios.delete("http://localhost:4000/emChangePro", product)
+            await axios.delete("http://localhost:4000/emChangePro/"+ product.del_id+"/"+product.del_size)
         },
         async add(index,id,size){
             console.log(index);
@@ -287,7 +287,7 @@ export default {
                 add_id:id,
                 add_size:size
             }
-            await axios.put("http://localhost:4000/emChangePro", product)
+            await axios.put("http://localhost:4000/emChangePro"+ product)
         },
         async reduct(index,id,size){
             console.log(index);
