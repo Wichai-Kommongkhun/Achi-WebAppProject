@@ -100,7 +100,7 @@
         </div>
         <div class="row py-4">
           <div class="col">
-            <button type="button" class="btn btn-success">พิมพ์รายการสั่งซื้อ</button>
+            <button type="button" class="btn btn-success" @click="export_exel">พิมพ์รายการสั่งซื้อ</button>
             <br>
             <p style="color: aliceblue;" class="py-2">หมายเหตุ *: พิมพ์ข้อมูลคำสั่งตามที่แสดงในตาราง</p>
             <br>
@@ -154,7 +154,7 @@
     //   }   
     // }
 
- 
+    // import XLSX from 'xlsx'
   export default {
     data() {
       return {
@@ -165,6 +165,7 @@
         order:[],
         search_date:'',
         pay_success:'',
+        exel:[]
 
  
       }
@@ -185,6 +186,19 @@
       html_to_ex(){
         window.print()
       },
+      // export_exel(){
+      //    this.order.forEach(check => {
+      //     // console.log(check.order_id);
+      //     this.exel = 
+      //       {"เลขที่คำสั่งซื้อ":check}
+        
+      //   console.log(this.exel);
+      //   })
+      //    const dataWS = XLSX.utils.json_to_sheet(this.exel)
+      //     const wb = XLSX.utils.book_new()
+      //     XLSX.utils.book_append_sheet(wb, dataWS)
+      //     XLSX.writeFile(wb,'export.xlsx')
+      // },
 
     },
     created() {

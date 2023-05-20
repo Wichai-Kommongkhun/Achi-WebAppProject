@@ -7,7 +7,7 @@ const orderController = require('../controllers/business/order-controller');
 // const allOrder = require("../controllers/employee/allOrder")
 // const login = require('../controllers/employee/loginEm');
 
-
+// app.use(express.urlencoded({ extended: true })) 
 router = express.Router();
 
 
@@ -125,6 +125,7 @@ router.put("/emChangePro", async (req,res,next) => {
         const [add] = await conn.query("update product_store set amount =amount+1 where product_id=? and size=?",
         [add_id,add_size])
 
+
         const [del] = await conn.query("update product_store set amount =amount-1 where product_id=? and size=?",
         [de_id,de_size])
 
@@ -167,6 +168,24 @@ router.delete("/emChangePro/:id/:size" , async (req,res,next) => {
         [id,size])
     }catch(err){
 
+    }
+});
+
+router.get("/emAddPro" ,async (req,res,next) => {
+    try{
+        const [row] = await conn.query("select max(product_id)+1 as m_id from products")
+        // console.log(row);
+        res.send({pro_id_max:row})
+    }catch(err){
+
+    }
+})
+
+router.post("/emAddPro" ,async (req,res,next) => {
+    try{
+        console.log(req.body);
+    }catch(err){
+        console.log(err);
     }
 })
 

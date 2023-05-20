@@ -106,7 +106,7 @@
                                         <div class="row g-0">
                                             <div class="col-8 d-flex">
                                                 
-                                                <button class="btn btn-primary mx-2" @click="add(index,item.product_id,item.size)">เพิ่ม</button>
+                                                <button class="btn btn-primary mx-2" @click="add(index,item.product_id,item.size) ; products[index].size += 1">เพิ่ม</button>
                                                 <h3 class="mx-2"> {{ item.amount }} </h3>
                                                 <button class="btn btn-warning mx-2" @click="reduct(index,item.product_id,item.size)">ลด</button>
                                                 <!-- <button type="button" class="btn btn-outline-secondary">-</button>
@@ -287,7 +287,7 @@ export default {
                 add_id:id,
                 add_size:size
             }
-            await axios.put("http://localhost:4000/emChangePro"+ product)
+            await axios.put("http://localhost:4000/emChangePro", product)
         },
         async reduct(index,id,size){
             console.log(index);

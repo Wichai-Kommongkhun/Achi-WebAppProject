@@ -35,7 +35,7 @@
             <div class="col-8">
                 <div class="row" style="color:aliceblue;">
                     <div class="col-3">
-                        <h4>รหัสพนักงาน 12345</h4>
+                        <h4>รหัสพนักงาน {{id}}</h4>
                         <h5>เพิ่มสินค้าใหม่</h5>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="col">
                         <br>
-                        <h3>รหัสสินค้า : {{ p_id }}</h3>
+                        <h3>รหัสสินค้า : {{ max_pro[0].m_id }}</h3>
                     </div>
                 </div>
 
@@ -95,14 +95,14 @@
                     <div class="col-6 d-flex mx-4">
                         <h5>อัพโหลดรูปภาพ :</h5>
                         <div class="col mx-2">
-                            <input type="file" class="form-control">
+                            <input type="file" class="form-control" multiple @change="picture" >
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="row py-2">
                     <div class="col-4 d-flex py-2">
-                        <button type="submit" class="btn btn-lg btn-success mx-2 py-3" @click="add_pro">เพิ่มสินค้า</button>
+                        <button  class="btn btn-lg btn-success mx-2 py-3" @click="add_pro">เพิ่มสินค้า</button>
                         <!-- <button type="button" class="btn btn-lg btn-danger mx-2">ล้างข้อมูล</button> -->
                     </div>
                 </div>
@@ -120,6 +120,7 @@
 </template>
     
 <script>
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -129,29 +130,68 @@ export default {
             size: 0,
             color: '',
             amount: '',
-            img: ''
+            img: '',
+            id:'',
+            max_pro:0,
+            pictures: []
         }
     },
     methods: {
-        add_pro() {
+        async add_pro() {
             alert(`Add Product complete \n
-                     Product_id: ${this.p_id} \n
+                     Product_id: ${this.max_pro[0].m_id} \n
                      Brand: ${this.brand}\n
                      Name: ${this.p_name} \n
                      Color: ${this.color}\n
                      Size: ${this.size} \n
                      Amount: ${this.amount}`);
-            window.location.reload
+            // window.location.reload
+
+            // const new_product = {
+            //     id:this.max_pro[0].m_id,
+            //     brand:this.brand,
+            //     name:this.name,
+            //     color:this.color,
+            //     size:this.size,
+            //     amount:this.size,
+            //     picture:this.pictures
+            // }
+                console.log(this.pictures);
+                let formData = new FormData();
+                formData.append("id", this.max_pro[0].m_id);
+                formData.append("brand", this.brand);
+                formData.append("name", this.name);
+                formData.append("color", this.color);
+                formData.append("size", this.size);
+                formData.append("amount", this.amount);
+                for (let i = 0;i<this.pictures.length;i++){
+                    formData.append("picture", this.pictures[i])
+                }
+                // console.log(formData);
+                // console.log(this.pictures);
+            await axios.post("http://localhost:4000/emAddPro",formData)
         },
         logout(){
             localStorage.removeItem('Is_login');
             localStorage.removeItem('employee_id');
             window.location.href = '/login';
+        },
+        picture(event){
+            this.pictures = event.target.files;
+            console.log(this.pictures[0]);
         }
-
     },
     created() {
-        this.p_id = Math.floor(Math.random() * (19999999 - 10000016 + 1)) + 10000016
+        this.p_id = Math.floor(Math.random() * (19999999 - 10000016 + 1)) + 10000016;
+        this.id = localStorage.getItem("idEm");
+
+        const rub = axios.get("http://localhost:4000/emAddPro");
+
+        rub.then(res => {
+            this.max_pro = res.data.pro_id_max;
+        })
+
+
     },
 }
 </script>
