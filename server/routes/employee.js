@@ -84,8 +84,10 @@ router.put("/emCon", async (req,res,next) => {
         const row = await pool.query("update  orders set parcel_number = ? where order_id = ?",[tag,id])
         console.log(row);
         await pool.commit()
+        res.send("sucess")
     }catch(err){
         await pool.rollback()
+        res.send("fail")
     }finally{
         pool.release()
     }
@@ -150,10 +152,13 @@ router.put("/emChangePro", async (req,res,next) => {
 
         const [del] = await pool.query("update product_store set amount =amount-1 where product_id=? and size=?",
         [de_id,de_size])
+        
 
         await pool.commit()
+        res.send(del)
     }catch(err){
         await pool.rollback()
+        res.send("")
     }finally{
         pool.release()
     }
@@ -179,6 +184,7 @@ router.post("/emChangePro" , async (req,res,next) => {
             res.send({error:"ไม่สามารถแก้ไขได้"});
         }
         await pool.commit()
+        res.send("sucess")
     }catch(err){
         await pool.rollback()
     }finally{
@@ -198,8 +204,10 @@ router.delete("/emChangePro/:id/:size" , async (req,res,next) => {
         const [row] = await pool.query("delete from product_store where product_id =? and size=?",
         [id,size])
         await pool.commit()
+        res.send("sucess")
     }catch(err){
         await pool.rollback()
+        res.send("fail")
     }finally{
         pool.release()
     }
@@ -218,6 +226,8 @@ router.get("/emAddPro" ,async (req,res,next) => {
 
 
 router.post("/emAddPro/upload" ,upload.single('image') ,async (req,res,next) => {
+    const pool = await conn.getConnection()
+    await pool.beginTransaction();
     try{
         const picture = req.file.filename;
         const id = req.body.id;
@@ -230,14 +240,18 @@ router.post("/emAddPro/upload" ,upload.single('image') ,async (req,res,next) => 
         const detail = req.body.detail;
         const price = req.body.price;
         console.log(req.body);
-        const [row] = await conn.query("insert into products  values (?,?,?,?,?,?,?,?,?)",
+        const [row] = await pool.query("insert into products  values (?,?,?,?,?,?,?,?,?)",
         [id,name,brand,price,detail,picture,type,"new",color])
         
-        const [row2] = await conn.query("insert into product_store  values(?,?,?)",
+        const [row2] = await pool.query("insert into product_store  values(?,?,?)",
         [id,size,amount])
-
+        await pool.commit()
+        res.send("sucess")
     }catch(err){
-        console.log(err);
+        await pool.rollback()
+        res.send("fail")
+    }finally{
+        pool.release()
     }
 })
 

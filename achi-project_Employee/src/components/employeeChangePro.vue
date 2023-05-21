@@ -308,6 +308,7 @@ export default {
             await axios.put("http://localhost:4000/emChangePro", product)
         },
         async record(){
+
             if (!this.e_id){
                 return null;
             }
@@ -330,19 +331,29 @@ export default {
                         this.products[i].brand = this.e_brand;
                         this.products[i].price = this.e_price;
                         this.products[i].amount = this.e_amount;
-                        this.products[i].detail = this.e_de; 
-                        
-                        const product = {
-                        id:this.e_id,
-                        name:this.e_name,
-                        price:this.e_price,
-                        detail:this.e_detail
-                            }
-                            await axios.put("http://localhost:4000/emChangePro", product)
-                            window.location.href = "/"
+                        this.products[i].detail = this.e_detail;                       
                     }
-                    return null
+                    else{
+                        return null
+                    }
+                    break
                 }
+            }
+            if (this.e_price < 0  || this.e_name.length <= 0 || this.e_detail.length <= 0){
+                alert("กรอกข้อมูลผิดพลาด")
+                window.location.href = "/emChangePro"
+            }
+            else{
+                alert("success")
+                    const product = {
+                    id:this.e_id,
+                    name:this.e_name,
+                    price:this.e_price,
+                    detail:this.e_detail
+                        }
+                    await axios.put("http://localhost:4000/emChangePro", product)
+                    window.location.href = "/emChangePro"
+                   
             }
             
         },

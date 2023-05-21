@@ -42,7 +42,7 @@
                 <div class="row">
                     <div class="col6">
                         <div>
-                            <h5 style="display: inline">รหัสสินค้า : {{ p_id }}</h5>
+                            <h5 style="display: inline">รหัสสินค้า : {{ search }}</h5>
                         </div>
                         <div>
                             <h5 style="display: inline">ชื่อสินค้า : {{ product[0].product_name }}</h5>
@@ -148,24 +148,12 @@ export default {
         // console.log(pro_id.get('pro_id'));
         this.search = pro_id.get('pro_id');
         this.id = localStorage.getItem("idEm");
-        var set_d = true;
-        this.product_info.forEach(item => {
-            console.log(item.product_id == this.search);
-            if (item.product_id == this.search){
-                if (set_d){
-                    this.p_id = item.product_id;
-                    this.p_name = item.pro_name;
-                    this.brand = item.brand;
-                    this.price = item.price;
-                    set_d =false
-                }
-                this.amount += item.amount;
-            }
 
-        });
+
         const user = {
-            pro_id:this.p_id
+            pro_id:this.search
         }
+        console.log(user);
         const rub = axios.get("http://localhost:4000/emProde/"+user.pro_id);
 
         

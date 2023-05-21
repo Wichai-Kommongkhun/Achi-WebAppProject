@@ -163,6 +163,8 @@
     // }
 
     // import XLSX from 'xlsx'
+
+
   export default {
     data() {
       return {
@@ -195,6 +197,7 @@
         // axios.get("http://localhost:4000/export").then(res => {
         //   console.log(res.data);
         // })
+        
       },
       all(){
         this.pay_success = ''
@@ -212,7 +215,7 @@
       //     XLSX.utils.book_append_sheet(wb, dataWS)
       //     XLSX.writeFile(wb,'export.xlsx')
       // },
-
+        
     },
     created() {
       console.log(order);

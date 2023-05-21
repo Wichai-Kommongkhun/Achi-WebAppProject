@@ -188,6 +188,11 @@ export default {
                 //     }
                 // console.log(formData);
                 // console.log(this.pictures);
+                if (this.file == 0 || this.p_name.length == 0 || this.brand.length == 0 || this.price < 0 || !this.type || !this.color || this.amount < 0 || this.size < 0 || this.detail.length == 0){
+                    alert("กรอกข้อมูลไม่สำเร็จ")
+                    window.location.href = "/emAddPro"
+                }
+                else{
                 const formData = new FormData();
                 formData.append("id", this.max_pro[0].m_id);
                 formData.append("brand", this.brand);
@@ -200,9 +205,10 @@ export default {
                 formData.append("price", this.price);
                 formData.append('image',this.file);
                 axios.post("http://localhost:4000/emAddPro/upload",formData)
-            // await axios.post("http://localhost:4000/emAddPro/",formData)
-            alert("เสร็จสิ้น")
-            window.location.href = "/emAddPro"
+                // await axios.post("http://localhost:4000/emAddPro/",formData)
+                alert("เสร็จสิ้น")
+                window.location.href = "/emAddPro"
+                }
         },
         logout(){
             localStorage.removeItem('Is_login');
