@@ -63,10 +63,20 @@
                 </div>
 
                 <div class="row py-2">
-                    <div class="col-4 d-flex ">
+                    <div class="col-2 d-flex ">
                         <h5>ราคา :</h5>
                         <div class="col mx-2">
                             <input type="text" class="form-control" v-model="price">
+                        </div>
+                    </div>
+                    <div class="col-2 d-flex ">
+                        <h5>ประเภท :</h5>
+                        <div class="col mx-2">
+                           <select name="" id="" v-model="type" style="height: 35px; border-radius: 10px;">
+                                <option value="0" selected>เลือก</option>
+                                <option value="football">football</option> 
+                                <option value="futsal">futsal</option>
+                           </select>
                         </div>
                     </div>
                     <div class="col-4 d-flex">
@@ -98,6 +108,12 @@
                             <input type="file" class="form-control" multiple @change="picture" >
                         </div>
                     </div>
+                    <div class="row py-2">
+                    <div class="col-10 d-flex py-2">
+                        <label for="" style="margin-right: 10px; margin-top: 5px;"><h5>รายละเอียดสินค้า :</h5> </label>
+                        <textarea name="" id="" cols="100" rows="5" v-model="detail"></textarea>
+                    </div>
+                </div>
                 </div>
                 
                 <div class="row py-2">
@@ -106,7 +122,6 @@
                         <!-- <button type="button" class="btn btn-lg btn-danger mx-2">ล้างข้อมูล</button> -->
                     </div>
                 </div>
-
             </div>
 
             <div class="row">
@@ -133,7 +148,10 @@ export default {
             img: '',
             id:'',
             max_pro:0,
-            file: []
+            file: [],
+            type:'',
+            detail:'',
+            price:''
         }
     },
     methods: {
@@ -141,9 +159,11 @@ export default {
             alert(`Add Product complete \n
                      Product_id: ${this.max_pro[0].m_id} \n
                      Brand: ${this.brand}\n
+                     type: ${this.type} \n
                      Name: ${this.p_name} \n
                      Color: ${this.color}\n
                      Size: ${this.size} \n
+                     Size: ${this.price} \n
                      Amount: ${this.amount}`);
             // window.location.reload
 
@@ -157,25 +177,32 @@ export default {
             //     picture:this.pictures
             // }
                 // console.log(this.pictures);
-                // let formData = new FormData();
-                // formData.append("id", this.max_pro[0].m_id);
-                // formData.append("brand", this.brand);
-                // formData.append("name", this.name);
-                // formData.append("color", this.color);
-                // formData.append("size", this.size);
-                // formData.append("amount", this.amount);
-                // for (let i = 0;i<this.pictures.length;i++){
-                //     formData.append("picture", this.pictures[i])
+                // for (let i = 0;i<this.file.length;i++){
+                //     formData.append("image", this.file[i])
                 // }
+                // this.file.forEach((image) => {
+                //     formData.append("myImage", image);
+                // });
                 // for (const file of this.pictures.value) {
                 //     formData.append('files', file) 
                 //     }
                 // console.log(formData);
                 // console.log(this.pictures);
                 const formData = new FormData();
+                formData.append("id", this.max_pro[0].m_id);
+                formData.append("brand", this.brand);
+                formData.append("name", this.p_name);
+                formData.append("type", this.type);
+                formData.append("color", this.color);
+                formData.append("size", this.size);
+                formData.append("amount", this.amount);
+                formData.append("detail", this.detail);
+                formData.append("price", this.price);
                 formData.append('image',this.file);
                 axios.post("http://localhost:4000/emAddPro/upload",formData)
             // await axios.post("http://localhost:4000/emAddPro/",formData)
+            alert("เสร็จสิ้น")
+            window.location.href = "/emAddPro"
         },
         logout(){
             localStorage.removeItem('Is_login');

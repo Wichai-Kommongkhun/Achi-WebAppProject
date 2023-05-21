@@ -71,7 +71,7 @@
                   <td v-if="item.payment_status == 1">ชำระเงินสำเร็จ</td>
                   <td v-else>ยังไม่ได้ชำระเงิน</td>
                   <td>
-                    <input type="text" class="form-control input-group-sm form-cc" v-model="send" />
+                    <input type="text" class="form-control input-group-sm form-cc" :id="'tag'+item.order_id" />
                   </td>
                   <td>
                     <button type="button" class="btn btn-sm btn-warning" @click="sendTag(item.order_id)">
@@ -146,17 +146,22 @@ export default {
         return sum;
     },
     sendTag(id){
-      alert("ส่งเลข " + this.send);
-      
-      const user = {
-        tag:this.send,
+      // alert("ส่งเลข " + this.send);
+      const tag = document.getElementById("tag"+id).value
+      if (tag.length > 10){
+        const user = {
+        tag:tag,
         tag_id:id
       }
       axios.put("http://localhost:4000/emCon",{
           user:user
       });
-
+      alert("ส่งสำเร็จ")
       window.location.href = "/emCon"
+      }
+      else{
+        alert("ส่งไม่สำเร็จ")
+      }
 
     },
   },

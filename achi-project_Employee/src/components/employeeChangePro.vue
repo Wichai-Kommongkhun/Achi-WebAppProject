@@ -283,10 +283,8 @@ export default {
         },
         async add(index,id,size){
             console.log(index);
-            console.log(this.product_info[index].amount)
             console.log(id);
             console.log(size);
-            this.product_info[index].amount = this.product_info[index].amount +1;
 
             const product = {
                 add_id:id,
@@ -296,14 +294,17 @@ export default {
         },
         async reduct(index,id,size){
             console.log(index);
-            console.log(this.product_info[index].amount)
-            if (this.product_info[index].amount > 1){
-                this.product_info[index].amount = this.product_info[index].amount -1
-            }
+            // console.log(this.product_info[index].amount)
+            console.log(id);
+            console.log(size);
+            // if (this.product_info[index].amount > 1){
+            //     this.product_info[index].amount = this.product_info[index].amount -1
+            // }
             const product = {
                 de_id:id,
                 de_size:size
             }
+            console.log(product);
             await axios.put("http://localhost:4000/emChangePro", product)
         },
         async record(){
@@ -366,7 +367,8 @@ export default {
                 }
 
             }
-            const product = {
+            if (this.e_size != 0 && this.e_count != 0){
+                const product = {
                 id:this.e_id,
                 size:this.e_size,
                 amount:this.e_count
@@ -377,6 +379,10 @@ export default {
             })
             alert(this.check)
             window.location.href = "/emChangePro"
+            }
+            else{
+                alert("ใส่ข้อมูลไม่ครบถ้วน")
+            }
         },
     }
 }

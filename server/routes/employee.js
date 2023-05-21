@@ -4,9 +4,20 @@ const app = express();
 const conn = require('../config/config');
 const { log } = require("console");
 const orderController = require('../controllers/business/order-controller');
-const multer = require('multer');
+const multer = require("multer");
 
-const upload = multer({dest:'./static/uploads'})
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+      callback(null, './static/uploads');
+    },
+    filename: function (req, file, callback) {
+      callback(
+        null,
+        file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+      );
+    },
+  });
+const upload = multer({ storage: storage });
 
 
 
@@ -31,6 +42,7 @@ router.post('/login-em', async (req,res,next) =>{
             // res.redirect("login-em")
             res.send({status: false});
             console.log("fail");
+            
         }
     }catch(err){
         console.log(err);
@@ -61,16 +73,21 @@ router.get('/emCon', async (req,res,next) => {
 });
 
 router.put("/emCon", async (req,res,next) => {
+    const pool = await conn.getConnection()
+    await pool.beginTransaction();
     try{
         const tag = req.body.user.tag;
         const id = req.body.user.tag_id;
         console.log(tag);
         console.log(id);
 
-        const [row] = await conn.query("update  orders set parcel_number = ? where order_id = ?",[tag,id])
+        const row = await pool.query("update  orders set parcel_number = ? where order_id = ?",[tag,id])
         console.log(row);
+        await pool.commit()
     }catch(err){
-        
+        await pool.rollback()
+    }finally{
+        pool.release()
     }
 });
 
@@ -109,6 +126,8 @@ router.get("/emChangePro", async (req,res,next) => {
 });
 
 router.put("/emChangePro", async (req,res,next) => {
+    const pool = await conn.getConnection()
+    await pool.beginTransaction();
     try{
         const id = req.body.id;
         const name = req.body.name;
@@ -119,26 +138,30 @@ router.put("/emChangePro", async (req,res,next) => {
         const de_id = req.body.de_id;
         const de_size = req.body.de_size
         // console.log(add_id,add_size);
-        
+        console.log(add_id,add_size);
 
-        const [row] = await conn.query("update products set product_name = ? ,price = ?,detail=? where product_id =?",
+        const [row] = await pool.query("update products set product_name = ? ,price = ?,detail=? where product_id =?",
         [name,price,detail,id])
         // console.log(row);
 
-        const [add] = await conn.query("update product_store set amount =amount+1 where product_id=? and size=?",
+        const [add] = await pool.query("update product_store set amount =amount+1 where product_id=? and size=?",
         [add_id,add_size])
 
 
-        const [del] = await conn.query("update product_store set amount =amount-1 where product_id=? and size=?",
+        const [del] = await pool.query("update product_store set amount =amount-1 where product_id=? and size=?",
         [de_id,de_size])
 
-
+        await pool.commit()
     }catch(err){
-
+        await pool.rollback()
+    }finally{
+        pool.release()
     }
 });
 
 router.post("/emChangePro" , async (req,res,next) => {
+    const pool = await conn.getConnection()
+    await pool.beginTransaction();
     try{
         
         const id = req.body.id;
@@ -146,31 +169,39 @@ router.post("/emChangePro" , async (req,res,next) => {
         const amount = req.body.amount;
 
         // console.log(req.body.idy);
-        const [row] = await conn.query("select size from product_store where size = ?",size);
-
-        if (row.length == 0){
-            const [row2] = await conn.query("insert into product_store(product_id,size,amount) values (?,?,?)",[id,size,amount])
+        const [row] = await pool.query("select size from product_store where size = ?",size);
+        console.log(row);
+        if (row.length == 1){
+            const [row2] = await pool.query("insert into product_store(product_id,size,amount) values (?,?,?)",[id,size,amount])
             res.send({error:"สำเร็จ"})
         }
         else{
             res.send({error:"ไม่สามารถแก้ไขได้"});
         }
+        await pool.commit()
     }catch(err){
-
+        await pool.rollback()
+    }finally{
+        pool.release()
     }
 });
 
 router.delete("/emChangePro/:id/:size" , async (req,res,next) => {
+    const pool = await conn.getConnection()
+    await pool.beginTransaction();
     try{
         console.log(req.params);
         const id = req.params.id;
         const size = req.params.size;
         console.log(id,size);
 
-        const [row] = await conn.query("delete from product_store where product_id =? and size=?",
+        const [row] = await pool.query("delete from product_store where product_id =? and size=?",
         [id,size])
+        await pool.commit()
     }catch(err){
-
+        await pool.rollback()
+    }finally{
+        pool.release()
     }
 });
 
@@ -188,12 +219,23 @@ router.get("/emAddPro" ,async (req,res,next) => {
 
 router.post("/emAddPro/upload" ,upload.single('image') ,async (req,res,next) => {
     try{
-        console.log(req.file.originalname);
-        // const file = req.file;
-        // const Image = require('./static/uploads')
+        const picture = req.file.filename;
+        const id = req.body.id;
+        const brand = req.body.brand;
+        const name = req.body.name;
+        const type = req.body.type;
+        const color = req.body.color;
+        const size = req.body.size;
+        const amount = req.body.amount;
+        const detail = req.body.detail;
+        const price = req.body.price;
+        console.log(req.body);
+        const [row] = await conn.query("insert into products  values (?,?,?,?,?,?,?,?,?)",
+        [id,name,brand,price,detail,picture,type,"new",color])
         
+        const [row2] = await conn.query("insert into product_store  values(?,?,?)",
+        [id,size,amount])
 
-        
     }catch(err){
         console.log(err);
     }
