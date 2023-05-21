@@ -156,23 +156,24 @@ export default {
             //     amount:this.size,
             //     picture:this.pictures
             // }
-                console.log(this.pictures);
-                let formData = new FormData();
-                formData.append("id", this.max_pro[0].m_id);
-                formData.append("brand", this.brand);
-                formData.append("name", this.name);
-                formData.append("color", this.color);
-                formData.append("size", this.size);
-                formData.append("amount", this.amount);
-                for (let i = 0;i<this.pictures.length;i++){
-                    formData.append("picture", this.pictures[i])
-                }
+                // console.log(this.pictures);
+                // let formData = new FormData();
+                // formData.append("id", this.max_pro[0].m_id);
+                // formData.append("brand", this.brand);
+                // formData.append("name", this.name);
+                // formData.append("color", this.color);
+                // formData.append("size", this.size);
+                // formData.append("amount", this.amount);
+                // for (let i = 0;i<this.pictures.length;i++){
+                //     formData.append("picture", this.pictures[i])
+                // }
                 // for (const file of this.pictures.value) {
                 //     formData.append('files', file) 
                 //     }
                 // console.log(formData);
                 // console.log(this.pictures);
-            await axios.post("http://localhost:4000/emAddPro",formData)
+                
+            // await axios.post("http://localhost:4000/emAddPro/",formData)
         },
         logout(){
             localStorage.removeItem('Is_login');
@@ -180,8 +181,12 @@ export default {
             window.location.href = '/login';
         },
         picture(event){
-            this.pictures = event.target.files;
-            console.log(this.pictures[0]);
+            // this.pictures = event.target.files;
+            // console.log(this.pictures[0]);
+            const file = event.target.files[0];
+            const formData = new FormData();
+            formData.append('image',file);
+            axios.post("http://localhost:4000/emAddPro/upload",formData)
         }
     },
     created() {
