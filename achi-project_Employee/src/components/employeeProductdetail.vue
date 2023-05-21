@@ -35,23 +35,23 @@
             <div class="col-8">
                 <div class="row" style="color:aliceblue;">
                     <div class="col-3">
-                        <h4>รหัสพนักงาน {{ id }}</h4>
-                        <h5 style="width: 900px;">รายละเอียดสินค้า: {{ product[0].detail }}</h5>
+                        <h4 style="display: flex;">รหัสพนักงาน <h4 style="margin-left: 10px; color: #FFB546;">{{ id }}</h4></h4>
+                        <h5 style="width: 1000px; display: flex;">รายละเอียดสินค้า : <h5 style="margin-left: 10px; color: #FFB546;">{{ product[0].detail }}</h5></h5>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col6">
+                    <div class="col-6">
                         <div>
-                            <h5 style="display: inline">รหัสสินค้า : {{ search }}</h5>
+                            <h5 style="display: flex">รหัสสินค้า : <h5 style="margin-left: 10px; color: #FFB546;">{{ search }}</h5></h5>
                         </div>
                         <div>
-                            <h5 style="display: inline">ชื่อสินค้า : {{ product[0].product_name }}</h5>
+                            <h5 style="display: flex">ชื่อสินค้า : <h5 style="margin-left: 10px; color: #FFB546;">{{ product[0].product_name }}</h5></h5>
                         </div>
                         <div>
-                            <h5 style="display: inline">แบรนด์ : {{ product[0].brand }}</h5>
+                            <h5 style="display: flex">แบรนด์ : <h5 style="margin-left: 10px; color: #FFB546;">{{ product[0].brand }}</h5></h5>
                         </div>
                         <div>
-                            <h5 style="display: inline">ราคา : {{ product[0].price }}</h5>
+                            <h5 style="display: flex">ราคา : <h5 style="margin-left: 10px; color: #FFB546;">{{ product[0].price }}</h5></h5>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col">
                         <table class="table" style="color: aliceblue;">
@@ -98,7 +97,7 @@
 
                                     <td> {{item.size}} EUR</td>
                                     <td> {{item.color}} </td>
-                                    <td> {{item.amount}}</td>
+                                    <td > {{item.amount}}</td>
                                 </tr>
                             </tbody> 
                         </table>
@@ -142,7 +141,7 @@ export default {
             id:''
         }
     },
-    created(){
+     created(){
         this.product_info = JSON.parse(localStorage.getItem("product_key"));
         const pro_id = new URLSearchParams(window.location.search);
         // console.log(pro_id.get('pro_id'));

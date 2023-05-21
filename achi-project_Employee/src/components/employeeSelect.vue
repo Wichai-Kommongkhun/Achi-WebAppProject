@@ -177,7 +177,6 @@
         pay_success:'',
         exel:[],
 
- 
       }
     },
     methods: {
@@ -215,7 +214,7 @@
       //     XLSX.utils.book_append_sheet(wb, dataWS)
       //     XLSX.writeFile(wb,'export.xlsx')
       // },
-        
+
     },
     created() {
       console.log(order);

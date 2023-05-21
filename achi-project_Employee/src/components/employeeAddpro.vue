@@ -51,13 +51,13 @@
                     <div class="col-7 d-flex ">
                         <h5>ชื่อสินค้า :</h5>
                         <div class="col mx-2">
-                            <input type="text" class="form-control" v-model="p_name">
+                            <input type="text" class="form-control" v-model="p_name"  style="background-color: #e9d1ae">
                         </div>
                     </div>
                     <div class="col-4 d-flex">
                         <h5>แบรนด์ :</h5>
                         <div class="col mx-2">
-                            <input type="text" class="form-control" v-model="brand">
+                            <input type="text" class="form-control" v-model="brand"  style="background-color: #e9d1ae">
                         </div>
                     </div>
                 </div>
@@ -66,13 +66,13 @@
                     <div class="col-2 d-flex ">
                         <h5>ราคา :</h5>
                         <div class="col mx-2">
-                            <input type="text" class="form-control" v-model="price">
+                            <input type="text" class="form-control" v-model="price"  style="background-color: #e9d1ae">
                         </div>
                     </div>
                     <div class="col-2 d-flex ">
                         <h5>ประเภท :</h5>
                         <div class="col mx-2">
-                           <select name="" id="" v-model="type" style="height: 35px; border-radius: 10px;">
+                           <select name="" id="" v-model="type" style="height: 35px; border-radius: 10px; background-color: #e9d1ae" >
                                 <option value="0" selected>เลือก</option>
                                 <option value="football">football</option> 
                                 <option value="futsal">futsal</option>
@@ -82,16 +82,16 @@
                     <div class="col-4 d-flex">
                         <h5>ขนาด :</h5>
                         <div class="col mx-2">
-                            <input type="number" class="form-control" v-model="size">
+                            <input type="number" class="form-control" v-model="size"  style="background-color: #e9d1ae">
                         </div>
                         <h6 style="color: yellow;" class="mt-2">หมายเหตุ* หน่วยเป็น EU</h6>
                     </div>
                     <div class="col-4 d-flex">
                         <h5>สี :</h5>
                         <div class="col mx-2">
-                            <input type="text" class="form-control" v-model="color">
+                            <input type="text" class="form-control" v-model="color"  style="background-color: #e9d1ae">
                         </div>
-                        <h6 style="color: yellow;" class="mt-2">ตัวอย่าง Red/blue/pink</h6>
+                        <h6 style="color: yellow;" class="mt-2" >ตัวอย่าง Red/blue/pink</h6>
                     </div>
                 </div>
 
@@ -99,26 +99,26 @@
                     <div class="col-3 d-flex ">
                         <h5>จำนวน :</h5>
                         <div class="col mx-2">
-                            <input type="number" class="form-control" v-model="amount">
+                            <input type="number" class="form-control" v-model="amount"  style="background-color: #e9d1ae">
                         </div>
                     </div>
                     <div class="col-6 d-flex mx-4">
                         <h5>อัพโหลดรูปภาพ :</h5>
                         <div class="col mx-2">
-                            <input type="file" class="form-control" multiple @change="picture" >
+                            <input type="file" class="form-control" multiple @change="picture" style="background-color: #e9d1ae; color: ;">
                         </div>
                     </div>
                     <div class="row py-2">
                     <div class="col-10 d-flex py-2">
                         <label for="" style="margin-right: 10px; margin-top: 5px;"><h5>รายละเอียดสินค้า :</h5> </label>
-                        <textarea name="" id="" cols="100" rows="5" v-model="detail"></textarea>
+                        <textarea name="" id="" cols="100" rows="5" v-model="detail" style="border-radius: 10px; background-color: #e9d1ae; color: rgb(3, 3, 3);"></textarea>
                     </div>
                 </div>
                 </div>
                 
                 <div class="row py-2">
                     <div class="col-4 d-flex py-2">
-                        <button  class="btn btn-lg btn-success mx-2 py-3" @click="add_pro">เพิ่มสินค้า</button>
+                        <button  class="btn btn-lg btn-success mx-2 py-3" @click="add_pro" >เพิ่มสินค้า</button>
                         <!-- <button type="button" class="btn btn-lg btn-danger mx-2">ล้างข้อมูล</button> -->
                     </div>
                 </div>
