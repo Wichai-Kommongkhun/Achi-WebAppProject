@@ -132,7 +132,8 @@
             (s_nike && item.brand.toUpperCase() === 'NIKE' ? true : false) ||
             (s_adi && item.brand.toUpperCase() === 'ADIDAS' ? true : false) ||
             (s_puma && item.brand.toUpperCase() === 'PUMA' ? true : false) ||
-            (s_mizu && item.brand.toUpperCase() === 'MIZUNO' ? true : false)) && item.size.includes(this.s_size) || item.color.toLowerCase().includes(this.s_color)">
+            (s_mizu && item.brand.toUpperCase() === 'MIZUNO' ? true : false)) && item.size.includes(this.s_size) || item.color.toLowerCase().includes(this.s_color) &&
+             Number(min_price)<=Number(item.price) &&  Number(max_price)>=Number(item.price)">
 
             <div class="card bg-dark" style="width: 18rem; height: ">
               <img :src="'http://localhost:4000/uploads/' + item.image" class="" style=" max-width: 300px; min-height: 300px; 
@@ -193,7 +194,6 @@ export default {
       now_list: 0,
       load_state: false,
       type_product: '',
-      s_size:'',
       s_color:''
     };
   },
@@ -266,7 +266,7 @@ export default {
     select_color(index){
       console.log(index);
       console.log(this.color[index]);
-      if (!index){
+      if (!index && index != 0){
         this.s_color = this.color
       }
       else{
