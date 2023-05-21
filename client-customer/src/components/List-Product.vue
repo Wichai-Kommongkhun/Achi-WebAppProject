@@ -35,17 +35,11 @@
           <div class="col">
             <div class="size_title d-flex">
               <h4>ไซต์</h4>
-              <select class="mx-4" aria-label="Default select example">
-                <option selected value="EUR">EUR</option>
-                <option value="US">US</option>
-                <option value="UK">UK</option>
-                <option value="CM">CM</option>
-              </select>
             </div>
             <div class="checksize">
               <div class="form-check" v-for="(item, index) in size" :key="index">
-                <input class="form-check-input" type="checkbox" :value="item" id="flexCheckDefault" />
-                <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" :value="item" id="flexCheckDefault" @click="select_size(index)"/>
+                <label class="form-check-label" >
                   {{ item }}
                 </label>
               </div>
@@ -58,7 +52,7 @@
           <div class="col">
             <h4>สี</h4>
             <div class="form-check" v-for="(item, index) in color" :key="index">
-              <input class="form-check-input" type="checkbox" :value="item" id="flexCheckDefault" />
+              <input class="form-check-input" type="checkbox" :value="item" id="flexCheckDefault" @click="select_color(index)" />
               <label class="form-check-label">
                 {{ item }}
               </label>
@@ -138,7 +132,7 @@
             (s_nike && item.brand.toUpperCase() === 'NIKE' ? true : false) ||
             (s_adi && item.brand.toUpperCase() === 'ADIDAS' ? true : false) ||
             (s_puma && item.brand.toUpperCase() === 'PUMA' ? true : false) ||
-            (s_mizu && item.brand.toUpperCase() === 'MIZUNO' ? true : false))">
+            (s_mizu && item.brand.toUpperCase() === 'MIZUNO' ? true : false)) && item.size.includes(this.s_size) || item.color.toLowerCase().includes(this.s_color)">
 
             <div class="card bg-dark" style="width: 18rem; height: ">
               <img :src="'http://localhost:4000/uploads/' + item.image" class="" style=" max-width: 300px; min-height: 300px; 
@@ -162,7 +156,7 @@
             </div>
           </div>
         </div>
-
+<div>{{ product }}</div>
         <!-- <div class="row d-flex justify-content-center">
           <div class="d-grid col-6 mx-aut">
             <button type="button" class="btn btn-warning mb-4 btn-lg">
@@ -186,7 +180,7 @@ export default {
       title: "",
       brand: ["NIKE", "ADIDAS", "PUMA", "MIZUNO"],
       size: [],
-      color: ["แดง", "ขาว", "น้ำเงิน", "ชมพู", "ส้ม", "แดง", "เขียว", "เทา"],
+      color: ["red", "white", "blue", "pink", "orange", "green", "grey"],
       max_price: 50000,
       min_price: 0,
       search_all: true,
@@ -198,7 +192,9 @@ export default {
       list_num: 9,
       now_list: 0,
       load_state: false,
-      type_product: ''
+      type_product: '',
+      s_size:'',
+      s_color:''
     };
   },
   async created() {
@@ -258,6 +254,27 @@ export default {
     async addStar(index) {
       console.log(index, 121);
     },
+    select_size(index){
+      if (!index){
+        this.s_size = this.size
+      }
+      else{
+        this.s_size = this.size[index]
+      }
+      console.log(this.s_size);
+    },
+    select_color(index){
+      console.log(index);
+      console.log(this.color[index]);
+      if (!index){
+        this.s_color = this.color
+      }
+      else{
+        this.s_color = this.color[index]
+        console.log(this.s_color);
+      }
+
+    }
   },
 };
 </script>

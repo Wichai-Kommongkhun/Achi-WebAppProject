@@ -133,7 +133,7 @@ export default {
             img: '',
             id:'',
             max_pro:0,
-            pictures: []
+            file: []
         }
     },
     methods: {
@@ -172,7 +172,9 @@ export default {
                 //     }
                 // console.log(formData);
                 // console.log(this.pictures);
-                
+                const formData = new FormData();
+                formData.append('image',this.file);
+                axios.post("http://localhost:4000/emAddPro/upload",formData)
             // await axios.post("http://localhost:4000/emAddPro/",formData)
         },
         logout(){
@@ -183,10 +185,7 @@ export default {
         picture(event){
             // this.pictures = event.target.files;
             // console.log(this.pictures[0]);
-            const file = event.target.files[0];
-            const formData = new FormData();
-            formData.append('image',file);
-            axios.post("http://localhost:4000/emAddPro/upload",formData)
+            this.file = event.target.files[0];
         }
     },
     created() {

@@ -7,10 +7,9 @@ const orderController = require('../controllers/business/order-controller');
 const multer = require('multer');
 
 const upload = multer({dest:'./static/uploads'})
-// const allOrder = require("../controllers/employee/allOrder")
-// const login = require('../controllers/employee/loginEm');
 
-// app.use(express.urlencoded({ extended: true })) 
+
+
 router = express.Router();
 
 
@@ -190,6 +189,10 @@ router.get("/emAddPro" ,async (req,res,next) => {
 router.post("/emAddPro/upload" ,upload.single('image') ,async (req,res,next) => {
     try{
         console.log(req.file.originalname);
+        // const file = req.file;
+        // const Image = require('./static/uploads')
+        
+
         
     }catch(err){
         console.log(err);
