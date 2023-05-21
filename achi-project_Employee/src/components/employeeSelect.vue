@@ -40,20 +40,27 @@
           <div class="col-2">
             <h6>แสดงรายการ : </h6>
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <div class="form-check mx-2">
               <input class="form-check-input" type="radio" value="0" name="0" id="flexCheckDefault" @click="pay_success=1" >
               <label class="form-check-label" for="flexCheckDefault" >
                 ที่ชำระเงินสำเร็จ
               </label>
             </div>
-
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <div class="form-check">
               <input class="form-check-input" type="radio" value="0"  name="0" id="flexCheckDefault" @click="pay_success=0">
               <label class="form-check-label" for="flexCheckDefault">
                 ที่ยังไม่ชำระเงิน
+              </label>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" value="0"  name="0" id="flexCheckDefault" @click="all">
+              <label class="form-check-label" for="flexCheckDefault">
+                แสดงทั้งหมด
               </label>
             </div>
           </div>
@@ -100,7 +107,8 @@
         </div>
         <div class="row py-4">
           <div class="col">
-            <button type="button" class="btn btn-success" @click="export_exel">พิมพ์รายการสั่งซื้อ</button>
+            <a download="somedata.xls" href="#" onclick="return ExcellentExport.excel(this, 'tblData', 'Sheet Name Here');">Export to Excel</a>
+            <button type="button" class="btn btn-success" @click="html_to_ex">พิมพ์รายการสั่งซื้อ</button>
             <br>
             <p style="color: aliceblue;" class="py-2">หมายเหตุ *: พิมพ์ข้อมูลคำสั่งตามที่แสดงในตาราง</p>
             <br>
@@ -125,7 +133,7 @@
 
   import order from '../data_json/orders.js';
   import axios  from 'axios';
-
+  
     // function exportTableToExcel(tableID, filename = ''){
     //   var downloadLink;
     //   var dataType = 'application/vnd.ms-excel';
@@ -165,7 +173,7 @@
         order:[],
         search_date:'',
         pay_success:'',
-        exel:[]
+        exel:[],
 
  
       }
@@ -184,8 +192,13 @@
         return sum;
       },
       html_to_ex(){
-        window.print()
+        // axios.get("http://localhost:4000/export").then(res => {
+        //   console.log(res.data);
+        // })
       },
+      all(){
+        this.pay_success = ''
+      }     
       // export_exel(){
       //    this.order.forEach(check => {
       //     // console.log(check.order_id);

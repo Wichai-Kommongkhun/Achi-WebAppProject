@@ -206,7 +206,7 @@
         
     </div>
 
-    <div style="color: aliceblue;">{{ products }}</div>
+    <!-- <div style="color: aliceblue;">{{ products }}</div> -->
 
     
 </template>
@@ -372,16 +372,11 @@ export default {
                 amount:this.e_count
             }
 
-            await axios.post("http://localhost:4000/emChangePro", product)
-
-            const rub = axios.get("http://localhost:4000/emChangePro")
-
-            await rub.then(err => {
+            await axios.post("http://localhost:4000/emChangePro", product).then(err => {
                 this.check = err.data.error;
             })
-
-            console.log(rub);
-
+            alert(this.check)
+            window.location.href = "/emChangePro"
         },
     }
 }
