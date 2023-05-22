@@ -201,8 +201,6 @@
       all(){
         this.pay_success = ''
       }     
-
-
     },
     created() {
       console.log(order);

@@ -230,8 +230,6 @@ export default {
         rub.then(res => {
             this.max_pro = res.data.pro_id_max;
         })
-
-
     },
 }
 </script>

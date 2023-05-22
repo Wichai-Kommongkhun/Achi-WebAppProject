@@ -181,7 +181,6 @@
                             </div>
                         </div>
 
-
                         <div class="row">
                             <div class="col-6 d-flex py-2">
                                 <h5>จำนวน :</h5>

@@ -108,7 +108,6 @@ export default {
             search: '',
             id:'',
             product:[]
-
         }
     },
     created() {

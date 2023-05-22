@@ -155,7 +155,6 @@ export default {
         console.log(user);
         const rub = axios.get("http://localhost:4000/emProde/"+user.pro_id);
 
-        
         // const rub = axios.get("http://localhost:4000/emProde/:pid");
         rub.then(res => {
             this.product = res.data.product;

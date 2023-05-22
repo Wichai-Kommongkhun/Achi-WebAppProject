@@ -130,7 +130,7 @@ export default {
       id:'',
       orders:[],
       search_date:'',
-    };
+    }; 
   },
   methods: {
     logout() {

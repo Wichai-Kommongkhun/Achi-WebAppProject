@@ -249,7 +249,6 @@ export default {
     methods: {},
 };
 </script>
-
 <style scoped>
 .order_flow {
     height: 500px !important;
