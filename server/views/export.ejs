@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        
+        <style>
+            .table{
+                row-gap: 4px;
+                column-gap: 10px;
+                border:1px solid black;
+
+                background-color: burlywood;
+            }
+
+            body{
+                background-color: grey ;
+            }
+
+            
+        </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="all_order " >
+            <h1 style="margin-top:20px">คำสั่งซื้อทั้งหมด</h1>
+                <div style="overflow: auto; height:400px">
+                    <table class="table" id="tblData">
+                        <tr>
+                            <th>หมายเลขคำสั่งซื้อ</th>
+                            <th>ชื่อ</th>
+                            <th>เบอร์</th>
+                            <th>วันที่สั่งซื้อ</th>
+                            <th>ราคารวม</th>
+                            <th>การชำระเงิน</th>
+                            <th>ที่อยู่</th>
+                        </tr>
+                        <tr v-for="item in all_order" :key="item" class="tbody">
+                            <td>{{item.order_id}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.phone}}</td>
+                            <td>{{item.date_checkout}}</td>
+                            <td>{{item.price}}</td>
+                            <td v-if="item.payment_status == 1">ชำระเงินสำเร็จ</td>
+                            <td v-else>ยังไม่ได้ชำระเงิน</td>
+                            <td>{{item.address}} {{item.tumbon}} {{item.amphur}} {{item.provices}} {{item.zib_code}}</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+           <button  class="btn btn-success"> <a download="all_order.xls" href="#" onclick="return ExcellentExport.excel(this, 'tblData', 'Sheet Name Here');" style="color: black; text-decoration:none ">Download</a></button>
+        </div>
+
+
+        <div class="all_order">
+            <h1 style="margin-top:20px">คำสั่งซื้อที่ยังไม่ถึงลูกค้า</h1>
+            <table class="table" id="order_no_success" >
+                <tr>
+                    <th>หมายเลขคำสั่งซื้อ</th>
+                    <th>ชื่อ</th>
+                    <th>เบอร์</th>
+                    <th>วันที่สั่งซื้อ</th>
+                    <th>ราคารวม</th>
+                    <th>การชำระเงิน</th>
+                    <th>ที่อยู่</th>
+                </tr>
+                <tr v-for="item in all_order" :key="item" v-show="item.date_success == null && item.parcel_number != null">
+                    <td>{{item.order_id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.date_checkout}}</td>
+                    <td>{{item.price}}</td>
+                    <td v-if="item.payment_status == 1">ชำระเงินสำเร็จ</td>
+                    <td v-else>ยังไม่ได้ชำระเงิน</td>
+                    <td>{{item.address}} {{item.tumbon}} {{item.amphur}} {{item.provices}} {{item.zib_code}}</td>
+                </tr>
+                
+            </table>
+           <button  class="btn btn-success"> <a download="order_no_success.xls" href="#" onclick="return ExcellentExport.excel(this, 'order_no_success', 'Sheet Name Here');" style="color: black; text-decoration:none ">Download</a></button>
+        </div>
+
+        <div class="all_order">
+            <h1 style="margin-top:20px">คำสั่งซื้อที่ยังไม่ได้จัดส่ง</h1>
+            <table class="table" id="order_no_tag" >
+                <tr>
+                    <th>หมายเลขคำสั่งซื้อ</th>
+                    <th>ชื่อ</th>
+                    <th>เบอร์</th>
+                    <th>วันที่สั่งซื้อ</th>
+                    <th>ราคารวม</th>
+                    <th>การชำระเงิน</th>
+                    <th>ที่อยู่</th>
+                </tr>
+                <tr v-for="item in all_order" :key="item" v-show="item.date_success == null && item.parcel_number == null">
+                    <td>{{item.order_id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.date_checkout}}</td>
+                    <td>{{item.price}}</td>
+                    <td v-if="item.payment_status == 1">ชำระเงินสำเร็จ</td>
+                    <td v-else>ยังไม่ได้ชำระเงิน</td>
+                    <td>{{item.address}} {{item.tumbon}} {{item.amphur}} {{item.provices}} {{item.zib_code}}</td>
+                </tr>
+                
+            </table>
+           <button  class="btn btn-success"> <a download="order_no_tag.xls" href="#" onclick="return ExcellentExport.excel(this, 'order_no_tag', 'Sheet Name Here');" style="color: black; text-decoration:none ">Download</a></button>
+        </div>
+    </div>
+
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/excellentexport@3.4.3/dist/excellentexport.min.js"></script>
+</body>
+    <script type="text/javascript" src="https://cdn.omise.co/omise.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            all_order: JSON.parse(`<%- order %>`)
+        },
+        async created(){
+            
+        }
+
+
+
+    })
+  
+         
+     
+</script>
+</html>
