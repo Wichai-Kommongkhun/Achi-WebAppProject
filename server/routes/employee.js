@@ -176,12 +176,12 @@ router.post("/emChangePro" , async (req,res,next) => {
         // console.log(req.body.idy);
         const [row] = await pool.query("select size from product_store where size = ?",size);
         console.log(row);
-        if (row.length == 1){
+        if (row.length == 0){
             const [row2] = await pool.query("insert into product_store(product_id,size,amount) values (?,?,?)",[id,size,amount])
-            res.send({error:"สำเร็จ"})
+            res.send({error:"เพิ่มสินค้าสำเร็จ"})
         }
         else{
-            res.send({error:"ไม่สามารถแก้ไขได้"});
+            res.send({error:"ไม่สามารถเพิ่มได้ เนื่องจากมีไซต์อยู่แล้ว"});
         }
         await pool.commit()
         res.send("sucess")
@@ -240,7 +240,7 @@ router.post("/emAddPro/upload" ,upload.single('image') ,async (req,res,next) => 
         const price = req.body.price;
         console.log(req.body);
         const [row] = await pool.query("insert into products  values (?,?,?,?,?,?,?,?,?)",
-        [id,name,brand,price,detail,picture,type,"new",color])
+        [id,name,brand,price,detail,picture,type,null,color])
         
         const [row2] = await pool.query("insert into product_store  values(?,?,?)",
         [id,size,amount])

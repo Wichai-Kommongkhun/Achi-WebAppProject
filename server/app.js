@@ -39,6 +39,9 @@ app.use(businessRouter.router);
 const omiseRouter = require("./routes/omise")
 app.use(omiseRouter.router)
 
+const ExelRouter = require("./routes/exel")
+app.use(ExelRouter.router)
+
 const loginem = require("./routes/employee")
 app.use(loginem.router)
 

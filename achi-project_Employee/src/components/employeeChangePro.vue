@@ -96,8 +96,7 @@
                                 <tr v-for="(item, index) in products" :key="item" :index="index" 
                                     v-show="item.product_id.toString().includes(search) && (find_size == -1 ? true : item.size == find_size ? true: false) 
                                     && (color === 'all' ? true: item.color.toLowerCase().includes(color.toLowerCase()) ? true:false)"
-                                    @click="look(item.product_id, item.product_name, item.detail, item.price, item.amount); e_index = index;" class="hv"
-                                >   
+                                    @click="look(item.product_id, item.product_name, item.detail, item.price, item.amount); e_index = index;" class="hv">      
                                     <td>{{ item.product_id }}</td>
                                     <td >{{ item.product_name }}</td>
                                     <td class="text-center"> &nbsp;{{ item.size }} EUR</td>
@@ -344,7 +343,7 @@ export default {
                 window.location.href = "/emChangePro"
             }
             else{
-                alert("success")
+                alert("แก้ไขสำเร็จ")
                     const product = {
                     id:this.e_id,
                     name:this.e_name,

@@ -107,8 +107,8 @@
         </div>
         <div class="row py-4">
           <div class="col">
-            <a download="somedata.xls" href="#" onclick="return ExcellentExport.excel(this, 'tblData', 'Sheet Name Here');">Export to Excel</a>
-            <button type="button" class="btn btn-success" @click="html_to_ex">พิมพ์รายการสั่งซื้อ</button>
+            <!-- <a download="somedata.xls" href="#" onclick="return ExcellentExport.excel(this, 'tblData', 'Sheet Name Here');">Export to Excel</a> -->
+            <a href="http://localhost:4000/exel"><button type="button" class="btn btn-success" @click="html_to_ex">พิมพ์รายการสั่งซื้อ</button></a>
             <br>
             <p style="color: aliceblue;" class="py-2">หมายเหตุ *: พิมพ์ข้อมูลคำสั่งตามที่แสดงในตาราง</p>
             <br>
@@ -201,19 +201,7 @@
       all(){
         this.pay_success = ''
       }     
-      // export_exel(){
-      //    this.order.forEach(check => {
-      //     // console.log(check.order_id);
-      //     this.exel = 
-      //       {"เลขที่คำสั่งซื้อ":check}
-        
-      //   console.log(this.exel);
-      //   })
-      //    const dataWS = XLSX.utils.json_to_sheet(this.exel)
-      //     const wb = XLSX.utils.book_new()
-      //     XLSX.utils.book_append_sheet(wb, dataWS)
-      //     XLSX.writeFile(wb,'export.xlsx')
-      // },
+
 
     },
     created() {
