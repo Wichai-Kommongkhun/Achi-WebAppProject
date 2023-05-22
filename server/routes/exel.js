@@ -8,7 +8,7 @@ const orderController = require('../controllers/business/order-controller');
 router = express.Router();
 
 
-
+//
 router.get('/exel' ,async(req, res, next)=>{
     try{
         const [order,fields] = await conn.query("select *, DATE_FORMAT(date_checkout, '%Y-%m-%d') AS date_checkout from orders left outer join customer_address using(address_number)");
