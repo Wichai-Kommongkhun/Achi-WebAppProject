@@ -73,7 +73,7 @@
                         <h5>ประเภท :</h5>
                         <div class="col mx-2">
                            <select name="" id="" v-model="type" style="height: 35px; border-radius: 10px; background-color: #e9d1ae" >
-                                <option value="0" selected>เลือก</option>
+                                <option value="" selected>เลือก</option>
                                 <option value="football">football</option> 
                                 <option value="futsal">futsal</option>
                            </select>
@@ -207,13 +207,13 @@ export default {
                 axios.post("http://localhost:4000/emAddPro/upload",formData)
                 // await axios.post("http://localhost:4000/emAddPro/",formData)
                 alert("เสร็จสิ้น")
-                window.location.href = "/emAddPro"
+                window.location.href = "/emSelecttrue"
                 }
         },
         logout(){
             localStorage.removeItem('Is_login');
             localStorage.removeItem('employee_id');
-            window.location.href = '/login';
+            window.location.href = '/login-em';
         },
         picture(event){
             // this.pictures = event.target.files;

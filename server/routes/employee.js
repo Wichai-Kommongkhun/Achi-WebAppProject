@@ -221,8 +221,7 @@ router.get("/emAddPro" ,async (req,res,next) => {
     }catch(err){
 
     }
-})
-
+});
 
 
 router.post("/emAddPro/upload" ,upload.single('image') ,async (req,res,next) => {
@@ -253,7 +252,7 @@ router.post("/emAddPro/upload" ,upload.single('image') ,async (req,res,next) => 
     }finally{
         pool.release()
     }
-})
+});
 
 
 router.get("/order-detail/employee/:oid",orderController.getOne_order)

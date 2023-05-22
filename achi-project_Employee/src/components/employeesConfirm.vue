@@ -136,7 +136,7 @@ export default {
     logout() {
       localStorage.removeItem('Is_login');
       localStorage.removeItem('employee_id');
-      window.location.href = '/login';
+      window.location.href = '/login-em';
     },
     sumPrice(cart){
         var sum = 0;
@@ -160,7 +160,7 @@ export default {
       window.location.href = "/emCon"
       }
       else{
-        alert("ส่งไม่สำเร็จ")
+        alert("หมายเลขพัสดุผิดพลาด")
       }
 
     },

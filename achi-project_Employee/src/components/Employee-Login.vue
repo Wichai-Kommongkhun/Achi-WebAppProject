@@ -23,6 +23,8 @@
                 <div class="mb-3">
                     <label for="formGroupExampleInput" class="form-label" name="password">รหัสผ่าน</label>
                     <input type="password" class="form-control" placeholder="กรอกรหัสผ่าน" v-model="password" required>
+                    <h5 v-if="show == 'fail'" style="color: red; margin-left: 5px; margin-top: 2px;">กรอกรหัสผิดพลาด</h5>
+
                 </div>
             </div>
         </div>
@@ -50,7 +52,8 @@ export default {
         return{
             emid:'',
             password:'',
-            check:''
+            check:'',
+            show:''
         }
     },
     methods: {
@@ -72,7 +75,9 @@ export default {
 
             }
                 else{
-                window.location.href = "login-em"
+                    this.show = "fail"
+                    // window.location.href = "login-em"
+                
             }
             });
         }

@@ -133,7 +133,7 @@ export default {
         logout() {
             localStorage.removeItem('Is_login');
             localStorage.removeItem('employee_id');
-            window.location.href = '/login';
+            window.location.href = '/login-em';
         }
     },
     

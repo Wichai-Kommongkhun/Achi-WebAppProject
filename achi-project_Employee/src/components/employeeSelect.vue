@@ -183,7 +183,7 @@
       logout() {
         localStorage.removeItem('Is_login');
         localStorage.removeItem('employee_id');
-        window.location.href = '/login';
+        window.location.href = '/login-em';
       },
       sumPrice(cart){
         var sum = 0;
