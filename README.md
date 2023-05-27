@@ -19,4 +19,4 @@
 * ไม่มีระบบจัดการคำสั่งซื้อ และบันทึกข้อมูล
 
 ## แผนภาพการทำงาน
-* Usecase Diagram
+* [Usecase Diagram](ReadmeFile/)
