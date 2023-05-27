@@ -66,7 +66,7 @@
             <ul class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdown">
               <li><h3><a href="/account-information" class="modi-a">บันชีของฉัน</a></h3></li>
               <li><h3><a href="/order_his" class="modi-a">ประวัติการสั่งซื้อ</a></h3></li>
-              <li><h3><a href="/pro_star" class="modi-a">สินค้าที่สนใจ</a></h3></li>
+              <!-- <li><h3><a href="/pro_star" class="modi-a">สินค้าที่สนใจ</a></h3></li> -->
               <li><h3><a href="#" @click="log_out()" class="" style="color: #E7CB0A;">ออกจากระบบ</a></h3></li>
             </ul>
           </li>
@@ -110,8 +110,8 @@
     </div>
     <div class="row mx-4">
       <div class="col-12 py-4 d-flex justify-content-center">
-        <input class="form-control form-control-lg mx-4" type="text" placeholder="พิมพ์ข้อความที่ต้องการค้นหา" aria-label=".form-control-lg example">
-        <button type="button" class="btn btn-warning btn-lg">ค้นหาสินค้า</button>
+        <input class="form-control form-control-lg mx-4" type="text" placeholder="พิมพ์ข้อความที่ต้องการค้นหา" v-model="find" aria-label=".form-control-lg example">
+        <button type="button" @click="finds();" class="btn btn-warning btn-lg">ค้นหาสินค้า</button>
       </div>
     </div>
   </div>
@@ -127,6 +127,7 @@ export default {
     return {
       username: '',
       search: false,
+      find: '',
       login_active: false
     };
   },
@@ -137,6 +138,9 @@ export default {
       service_login.logout();
       localStorage.removeItem('username');
       window.location.href = url;
+    },
+    finds(){
+      window.location.href = '/search/?find='+this.find
     }
   },
  async created(){

@@ -31,7 +31,7 @@
             <hr />
           </div>
         </div>
-        <div class="row" style="color: #fff">
+        <!-- <div class="row" style="color: #fff">
           <div class="col">
             <div class="size_title d-flex">
               <h4>ไซต์</h4>
@@ -47,8 +47,8 @@
 
             <hr />
           </div>
-        </div>
-        <div class="row" style="color: #fff">
+        </div> -->
+        <!-- <div class="row" style="color: #fff">
           <div class="col">
             <h4>สี</h4>
             <div class="form-check" v-for="(item, index) in color" :key="index">
@@ -59,7 +59,7 @@
             </div>
             <hr />
           </div>
-        </div>
+        </div> -->
         <div class="row" style="color: #fff">
           <div class="col">
             <h4>ราคา</h4>
@@ -82,26 +82,21 @@
         <!-- Header show product -->
         <div class="row" style="color: #fff">
           <div class="col d-flex">
-            <h1>{{ title }} (99 item)</h1>
-            <div class="sort mt-2 mx-4">
+            <h1>{{ title }} ({{ numPro }} item)</h1>
+            <!-- <div class="sort mt-2 mx-4">
               <h2>เรียงตาม :</h2>
-            </div>
-            <div class="select_sort mt-2">
+            </div> -->
+            <!-- <div class="select_sort mt-2">
               <select name="" id="" class="form-select">
                 <option selected value="A_Z">เรียงตามชื่อ A-z</option>
                 <option value="z-A">เรียงตามชื่อ Z-A</option>
                 <option value="min_to_max">เรียงตามราคา น้อย-มาก</option>
                 <option value="max_to_min">เรียงตามราคา มาก-น้อย</option>
               </select>
-            </div>
+            </div> -->
           </div>
         </div>
 
-        <!--                  v-show="(search_all ? true: false) || ((s_nike && item.brand === 'Nike') ? true: false) ||
-                 ((s_adi && item.brand === 'Adidas' ) ? true: false) ||
-                 ((s_puma && item.brand === 'Puma') ? true: false) ||
-                 ((s_mizu && item.brand === 'Mizuno') ? true: false)"> -->
-        <!-- List_product -->
         <div class="d-flex justify-content-center py-4 mt-4" v-if="load_state == false">
           <div class="spinner-grow text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
@@ -132,7 +127,7 @@
             (s_nike && item.brand.toUpperCase() === 'NIKE' ? true : false) ||
             (s_adi && item.brand.toUpperCase() === 'ADIDAS' ? true : false) ||
             (s_puma && item.brand.toUpperCase() === 'PUMA' ? true : false) ||
-            (s_mizu && item.brand.toUpperCase() === 'MIZUNO' ? true : false)) && item.size.includes(this.s_size) || item.color.toLowerCase().includes(this.s_color) &&
+            (s_mizu && item.brand.toUpperCase() === 'MIZUNO' ? true : false)) &&
              Number(min_price)<=Number(item.price) &&  Number(max_price)>=Number(item.price)">
 
             <div class="card bg-dark" style="width: 18rem; height: ">
@@ -147,17 +142,16 @@
                 <h3 style="cursor: pointer" @click="go_detal(item.product_id, item.product_name)">
                   {{ item.price }}.00 THB
                 </h3>
-                <div class="star text-end position-absolute bottom-0 end-0 mx-2">
+                <!-- <div class="star text-end position-absolute bottom-0 end-0 mx-2">
                   <span class="star">
                     <i class="bi bi-star" style="font-size: 24px"></i>
-                    <!-- text-warning -->
                   </span>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
         </div>
-<div>{{ product }}</div>
+<!-- <div>{{ product }}</div> -->
         <!-- <div class="row d-flex justify-content-center">
           <div class="d-grid col-6 mx-aut">
             <button type="button" class="btn btn-warning mb-4 btn-lg">
@@ -194,7 +188,8 @@ export default {
       now_list: 0,
       load_state: false,
       type_product: '',
-      s_color:''
+      s_color:'',
+      numPro: 0
     };
   },
   async created() {
@@ -216,6 +211,12 @@ export default {
       this.load_state = true;
     }
     this.product = product_.data;
+
+    this.product.forEach(el => {
+      if (el.type_product === this.type_product){
+        this.numPro += 1
+      }
+    });
   },
   watch: {
     s_nike(n) {

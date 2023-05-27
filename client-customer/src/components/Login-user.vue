@@ -18,15 +18,34 @@
                     <h3>Username/Email *</h3>
                 </label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control col-5" v-model="username" name="username" required />
+                    <input type="text" class="form-control col-5"  minlength="6" maxlength="50"
+                    :class="($v.username.$model.length < 6 && $v.username.$model.length > 0) 
+                    || ($v.username.$model.length > 50 && $v.username.$model.length > 0)  
+                    ? 'form-control is-invalid col-5':'form-control col-5'"
+                    v-model="$v.username.$model" name="username" required />
+                </div>
+                <div class="error">
+                    <h5 v-if="($v.username.$model.length < 6 && $v.username.$model.length > 0) || 
+                    ($v.username.$model.length > 50 && $v.username.$model.length > 0)" 
+                    style="color: rgb(215, 30, 95);"> username ต้องมีตัวอักษรตั้งแต่ 6-50 ตัว </h5>
                 </div>
                 <label for="inputPassword" class="form-label mt-3">
                     <h3>Password *</h3>
                 </label>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" v-model="password" name="password" required />
+                    <input type="password" class="form-control" minlength="8" maxlength="50"
+                    :class="$v.password.$model.length > 0 && $v.password.vaildatePassword.$response == false ? 
+                    'form-control is-invalid': 'form-control'"
+                    v-model="$v.password.$model" name="password" required />
                 </div>
-                <a href="" style="color:aliceblue">ฉันลืมรหัสผ่าน</a>
+                <div class="error">
+                    <h5 style="color: rgb(215, 30, 95);" 
+                        v-if="$v.password.$model.length > 0 && $v.password.vaildatePassword.$response == false 
+                        || ($v.password.$model.length < 8 && $v.password.$model.length > 0)">
+                        รหัสผ่านประกอบด้วย ตัวเลข 0-9 ตัวอักษร a-z และ A-Z และมีจำนวนตั้งแต่ 8 ตัวขึ้นไป
+                    </h5>
+                </div>
+                <a href="/register" style="color:aliceblue">ฉันลืมรหัสผ่าน</a>
                 <div class="col-auto mt-3">
                     <button class="btn btn-primary mb-3 btn-lg">เข้าสู่ระบบ</button>
                 </div>
@@ -49,7 +68,23 @@
 
 <script>
 import service_login from '@/service/service_login';
+import { useVuelidate } from '@vuelidate/core';
+import { required, minLength, maxLength} from '@vuelidate/validators';
+
+function vaildatePassword(val){
+    if (val.match(/[0-9]/) && val.match(/[a-z]/) && val.match(/[A-Z]/)){
+        return true
+    }else{
+        return false
+    }
+}
+
+
+
 export default {
+    setup(){
+        return { $v: useVuelidate() }   
+    },
     data() {
         return {
             username: '',
@@ -85,6 +120,20 @@ export default {
             }catch(er){
                 this.check_err = true;
                 console.log(er);
+            }
+        }
+    },
+    validations (){
+        return{
+            username:{
+                required: required,
+                minLength: minLength(6),
+                maxLength: maxLength(50)
+            },
+            password: {
+                required: required,
+                minLength: minLength(8),
+                vaildatePassword: vaildatePassword
             }
         }
     }

@@ -7,7 +7,6 @@ const conn = require('../config/config')
 const orderController = require('../controllers/business/order-controller');
 router = express.Router();
 
-
 //
 router.get('/exel' ,async(req, res, next)=>{
     try{

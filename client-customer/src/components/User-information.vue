@@ -125,7 +125,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mx-4 py-2">
+                <!-- <div class="row mx-4 py-2">
                     <div class="col-4">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="true" v-model="newPassword" id="flexCheckDefault">
@@ -134,8 +134,8 @@
                             </label>
                         </div>
                     </div>
-                </div>
-                <div class="row mx-4 py-2" v-show="newPassword == true">
+                </div> -->
+                <!-- <div class="row mx-4 py-2" v-show="newPassword == true">
                     <div class="col-6">
                         <h4> New-password:</h4>
                         <div class="input-group mb-3">
@@ -143,7 +143,7 @@
                                 required />
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row mx-4 py-2">
                     <div class="col-6">
@@ -180,7 +180,8 @@
 
 <script>
 import navUser from './Nav-user.vue'
-import service_account from '../service/service_account'
+import service_account from '../service/service_account';
+
 export default {
     components: {
         navUser
@@ -222,7 +223,8 @@ export default {
                 alert('Enter confirm_password ?')
             }
         }
-    }
+    },
+
 }
 </script>
 

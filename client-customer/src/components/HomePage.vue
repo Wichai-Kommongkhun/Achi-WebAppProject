@@ -84,7 +84,7 @@
                     <img src="@/assets/icons/l_pre.svg" alt="">
                   </button>
                 </div>
-                <div class="col-2" v-for="item in product" :key="item" v-show="item.p_status === 'new'">
+                <div class="col-2" v-for="item in product" :key="item" v-show="item.p_status === 'new' && item.type_product === 'football'">
                   <div class="card bg-dark " style="width: 18rem; height: ; ">
                     <img :src="'http://localhost:4000/uploads/' + item.image" class="" alt="..."
                       style="max-width: 300px; min-height: 300px; max-height: 300px; cursor: pointer;"   @click="go_detal(item.product_id, item.product_name)" />
@@ -94,12 +94,11 @@
                       <h3 @click="go_detal(item.product_id, item.product_name)" style="cursor: pointer;" >
                         {{ item.price }}.00 THB
                       </h3>
-                      <div class="star text-end">
+                      <!-- <div class="star text-end">
                         <span>
                           <i class="bi bi-star" style="font-size:24px;"></i>
-                          <!-- text-warning -->
                         </span>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -121,20 +120,21 @@
                     <img src="@/assets/icons/l_pre.svg" alt="">
                   </button>
                 </div>
-                <div class="col-2" v-for="item in 4" :key="item">
+                <div class="col-2" v-for="item in product" :key="item" v-show="item.p_status === 'new' && item.type_product === 'futsal'">
                   <div class="card bg-dark " style="width: 18rem; height: ; ">
-                    <img src="product[6].image" class="" alt="..."
-                      style="max-width: 300px; min-height: 300px; max-height: 300px; cursor: pointer;" />
+                    <img :src="'http://localhost:4000/uploads/' + item.image" class="" alt="..."
+                      style="max-width: 300px; min-height: 300px; max-height: 300px; cursor: pointer;"   @click="go_detal(item.product_id, item.product_name)" />
                     <div class="card-body text-start" style="color:#fff; width: 18rem; height: 12rem;">
-                      <h5 class="card-title">nike</h5>
-                      <p class="card-text" > name</p>
-                      <h3 >.00 THB</h3>
-                      <div class="star text-end">
+                      <h5 class="card-title" >{{ item.brand }}</h5>
+                      <p class="card-text" @click="go_detal(item.product_id, item.product_name)" style="cursor: pointer;" > {{ item.product_name }}</p>
+                      <h3 @click="go_detal(item.product_id, item.product_name)" style="cursor: pointer;" >
+                        {{ item.price }}.00 THB
+                      </h3>
+                      <!-- <div class="star text-end">
                         <span>
                           <i class="bi bi-star" style="font-size:24px;"></i>
-                          <!-- text-warning -->
                         </span>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>

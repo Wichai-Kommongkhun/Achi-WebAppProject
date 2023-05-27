@@ -62,13 +62,10 @@ export default {
                 emid: this.emid,
                 password:this.password
             }
-            const rub = axios.post("http://localhost:4000/login-em",{
+            const getStatus = axios.post("http://localhost:4000/login-em",{
                 user:user
             });
-            rub.then(res =>{
-                // var check2 = null;
-                // console.log(res.data.status);
-                // check2 = res.data;
+            getStatus.then(res =>{
                 if (res.data.status == true){
                 window.location.href = "/employeeSelect"
                 localStorage.setItem("idEm",user.emid);

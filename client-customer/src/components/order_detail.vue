@@ -74,6 +74,11 @@
                                 </span>
                             </h5>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5>เลขติดตามพัสดุ: {{ order.parcel_number }}</h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row py-1" style="margin-top: 10%">

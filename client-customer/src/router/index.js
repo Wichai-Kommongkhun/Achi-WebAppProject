@@ -14,6 +14,7 @@ import Check_out from "@/components/Check-out.vue";
 import pro_star from "@/components/product_star.vue";
 import order_his from "@/components/order_hitory.vue";
 import order_de from "@/components/order_detail.vue";
+import search from "@/components/Search-Product.vue"
 
 const routes = [
     {
@@ -76,6 +77,11 @@ const routes = [
         name:"order_detail",
         component:order_de,
         meta: {login: true}
+    },
+    {
+        path:"/search",
+        name: "search",
+        component: search
     }
 
 ]

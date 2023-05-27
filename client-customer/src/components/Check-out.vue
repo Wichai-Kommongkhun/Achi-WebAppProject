@@ -43,14 +43,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row py-2">
+                <div class="row py-2" v-if="delivery_price != 0">
                     <div class="col">
                         <hr />
                         <h3>ที่อยู่จัดส่ง:</h3>
                     </div>
                 </div>
 
-                <div class="" v-show="new_address == false">
+                <div class="" v-show="new_address == false && delivery_price != 0">
                     <div class="row py-3" v-for="(item, index) in cus_address" :key="item" :index="index">
                         <div class="col">
                             <div class="form-check">
@@ -75,25 +75,32 @@
                 </div>
 
                 <!-- Add address -->
-                <div class="row py-3" v-show="new_address">
+                <div class="row py-3" v-show="new_address ">
                     <div class="col">
                         <div class="col-5 py-1">
                             <label for="exampleFormControlInput1" class="form-label">ชื่อผู้รับ *</label>
-                            <input type="text" class="form-control" placeholder="" v-model="name_newAddr" required />
+                            <input type="text" class="form-control"  maxlength="50"
+                            v-model="$v.name_newAddr.$model"
+                            :class="$v.name_newAddr.$model.length > 0
+                             && ($v.name_newAddr.alpha.$response == false) ? 'is-invalid': ''" required />
                         </div>
                         <div class="col-5 py-2">
                             <label for="exampleFormControlInput1" class="form-label">เบอร์โทรศัพท์ *</label>
-                            <input type="text" class="form-control" placeholder="" v-model="phoe_newAddr" required />
+                            <input type="text" class="form-control"  minlength="10" 
+                            :class="$v.phoe_newAddr.$model.length > 0 
+                            && ($v.phoe_newAddr.decimal.$response == false) ? ' is-invalid': ''"
+                            v-model="$v.phoe_newAddr.$model" required />
                         </div>
                         <div class="col-8 py-2">
                             <label for="exampleFormControlInput1" class="form-label">ที่อยู่ *</label>
-                            <textarea type="text" class="form-control" rows="2" placeholder="" v-model="address_new"
+                            <textarea type="text" class="form-control" rows="2" 
+                            v-model="address_new"
                                 required></textarea>
                         </div>
                         <div class="row">
                             <div class="col-4 py-2">
                                 <label for="inputState" class="form-label">จังหวัด</label>
-                                <select id="inputState" class="form-select" v-model="provice_id">
+                                <select id="inputState" class="form-select" v-model="provice_id" required>
                                     <option v-for="item in provice.RECORDS" :key="item" :value="item.id">
                                         {{ item.name_th }}
                                     </option>
@@ -101,7 +108,7 @@
                             </div>
                             <div class="col-4 py-2">
                                 <label for="inputState" class="form-label">อำเภอ</label>
-                                <select id="inputState" class="form-select" v-model="amphur_id">
+                                <select id="inputState" class="form-select" v-model="amphur_id" required>
                                     <option v-for="item in amphur.RECORDS" :key="item" :value="item.id"
                                         v-show="item.province_id == provice_id">
                                         {{ item.name_th }}
@@ -121,13 +128,13 @@
                             </div>
                             <div class="col-4 py-2">
                                 <label for="exampleFormControlInput1" class="form-label">รหัสไปรษณีย์ *</label>
-                                <input type="text" class="form-control" v-model="zipcode" disabled />
+                                <input type="text" class="form-control" v-model="zipcode" disabled required />
                             </div>
                         </div>
                         <div class="row py-2">
                             <div class="col-6 d-flex">
                                 <button type="button" class="btn btn-success" @click="new_address = false;
-                                addNew_address();" style="font-size: 20px">
+                                addNew_address();" style="font-size: 20px" :disabled="$v.$errors.length > 0">
                                     บันทึกที่อยู่
                                 </button>
 
@@ -220,7 +227,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary"
-                                                data-bs-dismiss="modal">Understood</button>
+                                                data-bs-dismiss="modal">เข้าใจแล้ว</button>
                                         </div>
                                     </div>
                                 </div>
@@ -381,8 +388,13 @@ import service_checkout from "@/service/service_checkout";
 import amphur from "../assets/address/thai_amphures";
 import provice from "../assets/address/thai_provinces";
 import tumbon from "../assets/address/thai_tambons";
-
+import { useVuelidate } from '@vuelidate/core';
+import { required, minLength, maxLength, alpha,  decimal } from '@vuelidate/validators';
+//,  decimal
 export default {
+    setup() {
+        return { $v: useVuelidate() }
+    },
     data() {
         return {
             cart: {},
@@ -474,7 +486,7 @@ export default {
 
             if (this.delivery_price == 0){
                 console.log("รับที่ร้าน");
-                this.address_number = 99;
+                this.address_number = 4;
             }
             else if (this.address_number <= -1 && this.delivery_price != 0) {
                 return alert("กรุณาเลือกที่อยู่");
@@ -508,7 +520,22 @@ export default {
 
         },
     },
-
+    validations(){
+        return{
+            name_newAddr:{
+                required: required,
+                maxLength: maxLength(50),
+                minLength: minLength(0),
+                alpha: alpha
+            },
+            phoe_newAddr:{
+                required: required,
+                maxLength: maxLength(10),
+                minLength: minLength(10),
+                decimal: decimal
+            }
+        }
+    }
 };
 </script>
 
