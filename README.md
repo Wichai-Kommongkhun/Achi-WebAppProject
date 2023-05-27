@@ -23,3 +23,6 @@
  ![Usecase Diagram](ReadmeFile/Project-UCD.png)
 ### ER-Daigram
  ![ER-Daigram](ReadmeFile/DATABASE%20-%20Page%201%20(2).png)
+
+## เอกสารนำเสนอโครงงาน
+> https://docs.google.com/document/d/12tOi9V9LMjpX520hzm1gs0RJ6Ql7A0a5/edit?usp=sharing&ouid=105998843210828968364&rtpof=true&sd=true
