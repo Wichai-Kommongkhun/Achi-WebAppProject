@@ -31,3 +31,6 @@
 > * [nodeJS document](https://nodejs.org/en/docs)
 > * [express JS](https://expressjs.com/en/api.html)
 > * [bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+> * [Omise JS](https://www.omise.co/omise-js)
+
+# ตัวอย่างเว็บไซต์
