@@ -26,8 +26,8 @@
  ![ER-Daigram](ReadmeFile/DATABASE%20-%20Page%201%20(2).png)
 
 ## แหล่งอ้างอิงและเอกสารที่เกี่ยวข้อง
-> [เอกสารนำเสนอโครงงาน](https://docs.google.com/document/d/12tOi9V9LMjpX520hzm1gs0RJ6Ql7A0a5/edit?usp=sharing&ouid=105998843210828968364&rtpof=true&sd=true)
-> [Vue document](https://vuejs.org/guide/introduction.html)
-> [nodeJS document](https://nodejs.org/en/docs)
-> [express JS](https://expressjs.com/en/api.html)
-> [bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+> * [เอกสารนำเสนอโครงงาน](https://docs.google.com/document/d/12tOi9V9LMjpX520hzm1gs0RJ6Ql7A0a5/edit?usp=sharing&ouid=105998843210828968364&rtpof=true&sd=true)
+> * [Vue document](https://vuejs.org/guide/introduction.html)
+> * [nodeJS document](https://nodejs.org/en/docs)
+> * [express JS](https://expressjs.com/en/api.html)
+> * [bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
