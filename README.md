@@ -6,8 +6,9 @@
 *  2.) นายอนพัทย์ นันทนพิบูล รหัสนักศึกษา 64070249
 ## พัฒนาโดยใช้
 * HTML/CSS
-* Node JS / Express **(Back-End)**
-* Vue.js **(Front-End)**
+* Node JS / Express **(Back-End Fram Work)**
+* Vue.js **(Front-End Fram Work)**
+* bootstrap 5 **(CSS Fram Work) **
 * Mysql / aws cloud **(Databases)**
 * Omise PaymentGateway
 ## บทนำ
@@ -24,5 +25,9 @@
 ### ER-Daigram
  ![ER-Daigram](ReadmeFile/DATABASE%20-%20Page%201%20(2).png)
 
-## เอกสารนำเสนอโครงงาน
+## แหล่งอ้างอิงและเอกสารที่เกี่ยวข้อง
 > [เอกสารนำเสนอโครงงาน](https://docs.google.com/document/d/12tOi9V9LMjpX520hzm1gs0RJ6Ql7A0a5/edit?usp=sharing&ouid=105998843210828968364&rtpof=true&sd=true)
+> [Vue document](https://vuejs.org/guide/introduction.html)
+> [nodeJS document](https://nodejs.org/en/docs)
+> [express JS](https://expressjs.com/en/api.html)
+> [bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
