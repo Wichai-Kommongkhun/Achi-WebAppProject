@@ -20,6 +20,6 @@
 
 ## แผนภาพการทำงาน
 ### Usecase Daigram
-* [Usecase Diagram](ReadmeFile/Project-UCD.png)
+> ![Usecase Diagram](ReadmeFile/Project-UCD.png)
 ### ER-Daigram
-*[ER-Daigram](ReadmeFile/DATABASE%20-%20Page%201%20(2).png)
+> ![ER-Daigram](ReadmeFile/DATABASE%20-%20Page%201%20(2).png)
